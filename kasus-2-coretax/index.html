@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Kasus 2 — Coretax DJP: 1 Januari, Go Live</title>
-<link rel="stylesheet" href="case2.css"><link rel="stylesheet" href="class-plan.css">
+<link rel="stylesheet" href="case2.css"><link rel="stylesheet" href="class-plan.css"><link rel="stylesheet" href="visual-audit-final.css?v=20260807">
 </head>
 <body>
 <div class="app">
@@ -13,19 +13,19 @@
   <nav id="nav">
     <button class="active" data-view="briefing">01 Briefing Proyek</button>
     <button data-view="timeline">02 Timeline & Arsitektur</button>
-    <button data-view="roles">03 Role & Impersonation</button>
-    <button data-view="incidents">04 Incident Board</button>
+    <button data-view="roles">03 Hak Akses & Impersonasi</button>
+    <button data-view="incidents">04 Papan Insiden</button>
     <button data-view="performance">05 Dashboard Kinerja</button>
-    <button data-view="matrix">06 Matriks Assurance</button>
+    <button data-view="matrix">06 Matriks Evaluasi SIA</button>
     <button data-view="decision">07 Keputusan Stabilisasi</button>
   </nav>
-  <div class="progress-label"><span>Progres assurance SIA</span><b id="progressText">0%</b></div>
+  <div class="progress-label"><span>Progres analisis SIA</span><b id="progressText">0%</b></div>
   <div class="progress"><span id="progressBar"></span></div>
   <button id="reset" class="secondary">Reset kasus</button>
   <div class="source-key"><b>Prinsip bukti</b><span class="tag primary">Primer autentik</span><span class="tag secondaryTag">Sekunder autentik</span><p>Angka, tanggal, dan kondisi inti berasal dari dokumen resmi; perspektif pengguna/eksternal diberi label terpisah. Artefak antarmuka merupakan rekonstruksi pembelajaran.</p></div>
 </aside>
 <main>
-<header class="topbar"><div><small>RUANG KENDALI IMPLEMENTASI SISTEM INFORMASI AKUNTANSI</small><h2 id="viewTitle">Briefing Proyek</h2></div><div class="case-status">Kasus dunia nyata • Mode assurance</div></header>
+<header class="topbar"><div><small>RUANG KENDALI IMPLEMENTASI SISTEM INFORMASI AKUNTANSI</small><h2 id="viewTitle">Briefing Proyek</h2></div><div class="case-status">Kasus dunia nyata • Evaluasi implementasi</div></header>
 <section id="content" class="content"></section>
 </main>
 </div>
@@ -35,5 +35,6 @@
 <script src="stage-guard.js"></script>
 <script src="class-plan-coretax.js"></script>
 <script src="audit-final.js"></script>
+<script src="ui-audit-final.js?v=20260807"></script>
 </body>
 </html>
