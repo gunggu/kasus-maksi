@@ -1,6 +1,6 @@
 # Kasus Dunia Nyata Sistem Informasi Akuntansi — Magister Akuntansi
 
-Repositori ini berisi dua aplikasi kasus dunia nyata untuk pembelajaran Sistem Informasi Akuntansi pada tingkat Magister Akuntansi.
+Repositori privat ini berisi dua aplikasi kasus dunia nyata untuk pembelajaran Sistem Informasi Akuntansi pada tingkat Magister Akuntansi.
 
 ## Struktur kasus
 
@@ -44,10 +44,20 @@ Fitur utama:
 - **Panduan Mahasiswa:** tersedia terbuka melalui `panduan-mahasiswa/index.html` dan tidak memerlukan sandi.
 - **Area Dosen:** tersedia melalui `area-dosen/index.html`. Panduan dosen untuk kedua kasus disimpan sebagai ciphertext AES-GCM dan didekripsi di browser menggunakan sandi dosen. Sandi tidak disimpan di source code maupun dikirim ke server.
 
-File `PANDUAN_DOSEN.md` plaintext telah dihapus dari branch `main` setelah migrasi ke Area Dosen terenkripsi.
+File `PANDUAN_DOSEN.md` plaintext tetap tidak disimpan pada branch `main`.
 
-### Catatan keamanan penting
-Repositori ini bersifat publik. Karena panduan dosen pernah tersimpan sebagai plaintext pada commit sebelumnya, salinan historis dapat tetap ada pada riwayat Git. Area Dosen terenkripsi melindungi versi yang digunakan saat ini dari akses langsung melalui GitHub Pages, tetapi bukan pengganti autentikasi server atau repositori privat. Untuk menghapus paparan historis secara lebih kuat diperlukan rewrite riwayat Git atau pemindahan materi dosen ke repositori privat.
+## Model akses dan keamanan
+
+Repositori sekarang **private**. Karena itu, source code dan riwayat Git hanya dapat diakses oleh akun GitHub yang secara eksplisit diberi akses ke repositori.
+
+Untuk penggunaan kelas:
+- mahasiswa cukup menerima URL GitHub Pages dan tidak perlu diberi akses ke repositori;
+- Panduan Mahasiswa tetap dapat dibuka tanpa sandi;
+- Area Dosen tetap diproteksi dengan sandi dan enkripsi lokal sebagai lapisan tambahan apabila situs Pages dapat diakses mahasiswa;
+- jangan menambahkan mahasiswa sebagai collaborator repositori kecuali memang diperlukan;
+- bila akses repo suatu saat diberikan kepada pihak lain, anggap mereka dapat membaca seluruh riwayat Git yang dapat dijangkau oleh repo tersebut.
+
+Karena repo sudah privat dan panduan dosen plaintext telah dihapus dari `main`, rewrite history tidak lagi diperlukan untuk skenario penggunaan kelas normal. Enkripsi Area Dosen tetap dipertahankan untuk pemisahan peran pada lapisan aplikasi.
 
 ## Audit gabungan
 - [Audit Konten dan Visual Dua Kasus — 7 Agustus 2026](AUDIT_KONTEN_VISUAL_DUA_KASUS_2026-08-07.md)
