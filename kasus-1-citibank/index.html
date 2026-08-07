@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Kasus 1 — Citibank Indonesia: 117 Transfer</title>
-<link rel="stylesheet" href="app.css"><link rel="stylesheet" href="enhancements.css">
+<link rel="stylesheet" href="app.css"><link rel="stylesheet" href="enhancements.css"><link rel="stylesheet" href="matrix.css">
 </head>
 <body>
 <div class="app">
@@ -17,7 +17,8 @@
     <button data-view="formulir">04 Formulir & Kontrol</button>
     <button data-view="wawancara">05 Wawancara & Bukti</button>
     <button data-view="notebook">06 Notebook Investigasi</button>
-    <button data-view="keputusan">07 Kesimpulan</button>
+    <button data-view="matrix">07 Matriks R-K-B</button>
+    <button data-view="keputusan">08 Kesimpulan</button>
   </nav>
   <div class="progress-label"><span>Progres investigasi</span><b id="progressText">0%</b></div>
   <div class="progress"><span id="progressBar"></span></div>
@@ -30,6 +31,6 @@
 </main>
 </div>
 <div id="modal" class="modal"><div class="modal-card"><button id="closeModal">×</button><h2 id="modalTitle"></h2><div id="modalBody"></div></div></div>
-<script src="data-kasus.js"></script><script src="data-tambahan.js"></script><script src="app.js"></script><script src="extensions.js"></script>
+<script src="data-kasus.js"></script><script src="data-tambahan.js"></script><script src="app.js"></script><script src="extensions.js"></script><script src="matrix.js"></script>
 </body>
 </html>
