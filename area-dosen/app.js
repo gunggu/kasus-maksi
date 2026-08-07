@@ -1,4 +1,4 @@
-const payloads=['data/kasus-1.enc.json','data/kasus-2.enc.json'];
+const payloads=['data/kasus-1.enc.json?v=20260807-2','data/kasus-2.enc.json?v=20260807-2'];
 let guides=[];
 const $=s=>document.querySelector(s);
 const enc=new TextEncoder(),dec=new TextDecoder();
@@ -30,7 +30,7 @@ async function unlock(password){
   guides=[first,second];
 }
 function showGuide(i){document.querySelectorAll('.tabs button').forEach((b,j)=>b.classList.toggle('active',i===j));$('#guide').innerHTML=markdown(guides[i]||'')}
-$('#unlockForm').addEventListener('submit',async e=>{e.preventDefault();const status=$('#status'),btn=e.submitter,p=$('#password').value;status.textContent='Membuka materi…';status.className='status';btn.disabled=true;try{await unlock(p);$('#login').hidden=true;$('#teacherArea').hidden=false;showGuide(0);$('#password').value=''}catch(err){guides=[];status.textContent='Sandi tidak sesuai atau materi gagal didekripsi.';status.className='status error'}finally{btn.disabled=false}});
+$('#unlockForm').addEventListener('submit',async e=>{e.preventDefault();const status=$('#status'),btn=e.submitter,p=$('#password').value;status.textContent='Membuka materi…';status.className='status';btn.disabled=true;try{await unlock(p);$('#login').hidden=true;$('#teacherArea').hidden=false;showGuide(0);$('#password').value=''}catch(err){guides=[];status.textContent='Sandi tidak sesuai atau materi terenkripsi belum termuat dengan benar. Coba muat ulang halaman.';status.className='status error'}finally{btn.disabled=false}});
 $('#togglePassword').onclick=()=>{const p=$('#password');p.type=p.type==='password'?'text':'password';$('#togglePassword').textContent=p.type==='password'?'Lihat':'Sembunyikan'};
 document.querySelectorAll('.tabs button').forEach((b,i)=>b.onclick=()=>showGuide(i));
 $('#lock').onclick=()=>{guides=[];$('#guide').replaceChildren();$('#teacherArea').hidden=true;$('#login').hidden=false;$('#status').textContent='';$('#password').focus()};
