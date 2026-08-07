@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Kasus 1 — Citibank Indonesia: 117 Transfer</title>
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<div class="app">
+<aside class="sidebar">
+  <a class="back" href="../index.html">← Semua Kasus</a>
+  <div class="brand"><small>KASUS 1 • SIA MAGISTER</small><h1>117 Transfer</h1><p>Citibank Indonesia</p></div>
+  <nav id="nav">
+    <button class="active" data-view="briefing">01 Briefing</button>
+    <button data-view="transaksi">02 Transaksi</button>
+    <button data-view="jaringan">03 Jaringan Rekening</button>
+    <button data-view="formulir">04 Formulir & Kontrol</button>
+    <button data-view="wawancara">05 Wawancara & Bukti</button>
+    <button data-view="notebook">06 Notebook Investigasi</button>
+    <button data-view="keputusan">07 Kesimpulan</button>
+  </nav>
+  <div class="progress-label"><span>Progres investigasi</span><b id="progressText">0%</b></div>
+  <div class="progress"><span id="progressBar"></span></div>
+  <button id="reset" class="secondary">Reset kasus</button>
+  <div class="source-key"><b>Label sumber</b><span class="tag primary">Primer autentik</span><span class="tag secondaryTag">Sekunder autentik</span><span class="tag derived">Data turunan</span><span class="tag reconstruction">Rekonstruksi</span></div>
+</aside>
+<main>
+<header class="topbar"><div><small>LINGKUNGAN INVESTIGASI FORENSIK</small><h2 id="viewTitle">Briefing</h2></div><div class="case-status">Kasus historis • Mode pembelajaran</div></header>
+<section id="content" class="content"></section>
+</main>
+</div>
+<div id="modal" class="modal"><div class="modal-card"><button id="closeModal">×</button><h2 id="modalTitle"></h2><div id="modalBody"></div></div></div>
+<script src="data-kasus.js"></script><script src="app.js"></script>
+</body>
+</html>
