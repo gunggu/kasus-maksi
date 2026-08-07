@@ -1,4 +1,12 @@
 // Audit konten final: utamakan bahasa Indonesia pada antarmuka mahasiswa.
+const decisionMap={
+  'Lanjut penuh dengan remediasi terkontrol':'Lanjut penuh dengan remediasi terkontrol',
+  'Phased functionality / pembatasan fitur tertentu':'Penerapan bertahap atau pembatasan fitur tertentu',
+  'Parallel atau fallback terbatas untuk proses kritis':'Operasi paralel atau jalur cadangan terbatas untuk proses kritis',
+  'Rollback lebih luas':'Pengembalian lebih luas ke sistem/proses sebelumnya'
+};
+if(state.decision&&decisionMap[state.decision]&&state.decision!==decisionMap[state.decision]){state.decision=decisionMap[state.decision];save();}
+
 const renderUiCoretaxDasar=render;
 render=function(){
   renderUiCoretaxDasar();
@@ -31,18 +39,12 @@ render=function(){
   if(view==='decision'){
     const h=document.querySelector('#content .section-head h3');if(h)h.textContent='Keputusan Komite Pengarah';
     const p=document.querySelector('#content .section-head p');if(p)p.textContent='Pilih strategi stabilisasi berdasarkan bukti dan keterbatasannya, bukan berdasarkan hasil sejarah yang sudah diketahui.';
-    const labels=document.querySelectorAll('#content .decision-options label span');
-    const txt=[
-      'Lanjut penuh dengan remediasi terkontrol',
-      'Penerapan bertahap atau pembatasan fitur tertentu',
-      'Operasi paralel atau jalur cadangan terbatas untuk proses kritis',
-      'Pengembalian lebih luas ke sistem/proses sebelumnya'
-    ];
-    labels.forEach((x,i)=>{if(txt[i])x.textContent=txt[i]});
+    const inputs=document.querySelectorAll('#content .decision-options label input');
+    inputs.forEach(input=>{const old=input.value;if(decisionMap[old])input.value=decisionMap[old];if(state.decision===input.value)input.checked=true;});
+    document.querySelectorAll('#content .decision-options label').forEach(label=>{const input=label.querySelector('input'),span=label.querySelector('span');if(input&&span)span.textContent=input.value;});
   }
 };
 
-// Glosarium: istilah Indonesia didahulukan, padanan profesional tetap diperkenalkan.
 CORE_DATA.glossary=[
   ['Siklus Pengembangan Sistem (SDLC)','Siklus perencanaan, analisis, desain, pengembangan/konfigurasi, pengujian, implementasi, dan pemeliharaan sistem.'],
   ['Cutover','Perpindahan dari sistem/proses lama ke sistem baru pada saat implementasi.'],
@@ -58,7 +60,6 @@ CORE_DATA.glossary=[
   ['Triangulasi bukti','Membandingkan beberapa jenis/sumber bukti sebelum mengambil kesimpulan.']
 ];
 
-// Nama file ekspor dibuat konsisten dengan istilah antarmuka Indonesia.
 exportMatrix=function(){
   const esc=v=>'"'+String(v||'').replaceAll('"','""')+'"';
   const lines=[['ID','Masalah','Hipotesis Akar Penyebab','Risiko SIA','Pengendalian','Bukti','Tindakan Prioritas'].map(esc).join(',')];
