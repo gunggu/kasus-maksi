@@ -7,7 +7,7 @@ Repositori ini berisi dua aplikasi kasus dunia nyata untuk pembelajaran Sistem I
 ### Kasus 1 — Citibank Indonesia: 117 Transfer
 Aplikasi investigasi forensik berbasis bukti publik mengenai pemrosesan transfer, otorisasi, pemisahan tugas, verifikasi, jejak audit, kualitas bukti, dan pengawasan transaksi.
 
-Status: **versi pilot telah dibangun; siap untuk pengujian browser dan audit kelas terbatas**.
+Status: **kandidat v1.0; layak untuk pilot kelas terbatas setelah uji browser live**.
 
 Fitur utama:
 - staged evidence release empat tahap;
@@ -18,13 +18,18 @@ Fitur utama:
 - evidence provenance dan reliability labels;
 - notebook fakta vs inferensi;
 - prosedur investigasi lanjutan;
-- decision gate dan legal nuance.
+- Matriks Risiko–Kontrol–Bukti (R-K-B) interaktif;
+- ekspor notebook ke Markdown;
+- ekspor R-K-B ke Markdown dan CSV;
+- decision gate yang mensyaratkan minimal tiga baris R-K-B lengkap;
+- legal nuance yang memisahkan analisis kontrol dari tanggung jawab pidana.
 
 Dokumentasi:
 - [README Kasus 1](kasus-1-citibank/README.md)
 - [Panduan Mahasiswa](kasus-1-citibank/PANDUAN_MAHASISWA.md)
 - [Panduan Dosen](kasus-1-citibank/PANDUAN_DOSEN.md)
 - [Audit Pedagogis](kasus-1-citibank/AUDIT_PEDAGOGIS.md)
+- [Audit Kesiapan v1.0](kasus-1-citibank/AUDIT_KESIAPAN_V1.md)
 
 ### Kasus 2 — Coretax DJP: 1 Januari, Go Live
 Aplikasi assurance pengembangan sistem dan pascaimplementasi mengenai requirement, integrasi, role access, XML, kapasitas, insiden, stabilisasi, dan keputusan implementasi.
