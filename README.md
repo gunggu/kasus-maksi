@@ -1,6 +1,6 @@
 # Kasus Dunia Nyata Sistem Informasi Akuntansi — Magister Akuntansi
 
-Repositori privat ini berisi dua aplikasi kasus dunia nyata untuk pembelajaran Sistem Informasi Akuntansi pada tingkat Magister Akuntansi.
+Repositori publik ini berisi dua aplikasi kasus dunia nyata untuk pembelajaran Sistem Informasi Akuntansi pada tingkat Magister Akuntansi dan dipublikasikan melalui GitHub Pages.
 
 ## Struktur kasus
 
@@ -42,22 +42,28 @@ Fitur utama:
 ## Panduan pembelajaran
 
 - **Panduan Mahasiswa:** tersedia terbuka melalui `panduan-mahasiswa/index.html` dan tidak memerlukan sandi.
-- **Area Dosen:** tersedia melalui `area-dosen/index.html`. Panduan dosen untuk kedua kasus disimpan sebagai ciphertext AES-GCM dan didekripsi di browser menggunakan sandi dosen. Sandi tidak disimpan di source code maupun dikirim ke server.
-
-File `PANDUAN_DOSEN.md` plaintext tetap tidak disimpan pada branch `main`.
+- **Area Dosen:** tersedia melalui `area-dosen/index.html`. Versi aktif panduan dosen disimpan sebagai ciphertext AES-GCM dan didekripsi di browser menggunakan sandi dosen. Sandi tidak ditulis di source code dan tidak dikirim ke server.
+- File `PANDUAN_DOSEN.md` plaintext tidak lagi ada pada branch `main`.
 
 ## Model akses dan keamanan
 
-Repositori sekarang **private**. Karena itu, source code dan riwayat Git hanya dapat diakses oleh akun GitHub yang secara eksplisit diberi akses ke repositori.
+Repositori ini **publik** agar GitHub Pages dapat dipakai tanpa biaya tambahan dan dapat diakses mahasiswa tanpa akun GitHub.
 
 Untuk penggunaan kelas:
-- mahasiswa cukup menerima URL GitHub Pages dan tidak perlu diberi akses ke repositori;
-- Panduan Mahasiswa tetap dapat dibuka tanpa sandi;
-- Area Dosen tetap diproteksi dengan sandi dan enkripsi lokal sebagai lapisan tambahan apabila situs Pages dapat diakses mahasiswa;
-- jangan menambahkan mahasiswa sebagai collaborator repositori kecuali memang diperlukan;
-- bila akses repo suatu saat diberikan kepada pihak lain, anggap mereka dapat membaca seluruh riwayat Git yang dapat dijangkau oleh repo tersebut.
+- mahasiswa cukup menerima URL GitHub Pages;
+- Panduan Mahasiswa dapat dibuka tanpa sandi;
+- Area Dosen menggunakan password + dekripsi lokal sebagai pemisahan antarmuka;
+- jangan membagikan sandi Area Dosen kepada mahasiswa;
+- jangan menambahkan materi dosen baru dalam plaintext ke branch publik.
 
-Karena repo sudah privat dan panduan dosen plaintext telah dihapus dari `main`, rewrite history tidak lagi diperlukan untuk skenario penggunaan kelas normal. Enkripsi Area Dosen tetap dipertahankan untuk pemisahan peran pada lapisan aplikasi.
+### Batas keamanan yang harus diketahui
+Panduan dosen pernah tersimpan sebagai plaintext pada commit historis sebelum mekanisme enkripsi dibuat. Karena repositori kembali publik, pengguna yang cukup teknis dapat mencoba menelusuri riwayat Git lama. Karena itu, **password Area Dosen merupakan pemisahan akses pada aplikasi, bukan jaminan kerahasiaan terhadap seluruh riwayat Git historis**.
+
+Untuk benar-benar menghilangkan paparan historis diperlukan rewrite Git history atau repositori deployment publik baru dengan sejarah bersih. Sampai itu dilakukan, jangan menaruh informasi rahasia/sensitif di Area Dosen; gunakan area ini untuk panduan pengajaran, rubrik, dan debrief yang sifatnya instructional.
+
+## Deployment kelas
+
+Gunakan GitHub Pages dari branch `main` / root. Lihat `DEPLOYMENT_KELAS.md` untuk checklist aktivasi dan pengujian setelah perubahan visibility repository.
 
 ## Audit gabungan
 - [Audit Konten dan Visual Dua Kasus — 7 Agustus 2026](AUDIT_KONTEN_VISUAL_DUA_KASUS_2026-08-07.md)
