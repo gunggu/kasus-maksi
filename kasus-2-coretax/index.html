@@ -6,34 +6,30 @@
 <link rel="stylesheet" href="case2.css">
 </head>
 <body>
-<main class="shell">
+<div class="app">
+<aside class="sidebar">
   <a href="../index.html" class="back">← Semua Kasus</a>
-  <header>
-    <span class="eyebrow">KASUS 2 • SISTEM INFORMASI AKUNTANSI</span>
-    <h1>Coretax DJP: 1 Januari, Go Live</h1>
-    <p>Aplikasi assurance pengembangan sistem dan pascaimplementasi berskala nasional.</p>
-    <div class="status">Menu kasus disiapkan • Pengembangan penuh setelah Kasus 1 selesai</div>
-  </header>
-
-  <section class="brief">
-    <div><b>Peran mahasiswa</b><p>Tim assurance independen yang melapor kepada steering committee implementasi.</p></div>
-    <div><b>Keputusan utama</b><p>Apakah sistem perlu dilanjutkan penuh, distabilkan secara bertahap, dijalankan paralel, atau dibatasi sementara?</p></div>
-    <div><b>Fokus SIA</b><p>Requirement, integrasi, data, role access, XML, kapasitas, incident management, cutover, dan post-implementation review.</p></div>
-  </section>
-
-  <h2>Ruang kerja yang akan dikembangkan</h2>
-  <section class="modules">
-    <div><span>01</span><b>Briefing Proyek</b><p>Tujuan transformasi, business process redesign, COTS, dan ruang lingkup Coretax.</p></div>
-    <div><span>02</span><b>Timeline SDLC & Cutover</b><p>Praimplementasi, go-live, insiden, remediasi, dan stabilisasi.</p></div>
-    <div><span>03</span><b>Role & Impersonation</b><p>PIC, drafter, signer, delegated access, dan risiko segregation of duties.</p></div>
-    <div><span>04</span><b>Laboratorium XML</b><p>Template, validasi NPWP/NITKU, tax object, dan error handling.</p></div>
-    <div><span>05</span><b>Incident Board</b><p>Login, OTP, migrasi, invoice, XML, output, dan integrasi.</p></div>
-    <div><span>06</span><b>Performance Dashboard</b><p>Latency, throughput, volume transaksi, dan capacity remediation.</p></div>
-    <div><span>07</span><b>Stakeholder Room</b><p>DJP, wajib pajak, bendahara, konsultan, dan oversight.</p></div>
-    <div><span>08</span><b>Decision Gate</b><p>Go-live, phased rollout, parallel run, rollback, dan post-implementation conclusion.</p></div>
-  </section>
-
-  <div class="note"><b>Batas saat ini:</b> Halaman ini hanya menyiapkan arsitektur menu Kasus 2. Tidak ada data Citibank yang digunakan di sini.</div>
+  <div class="brand"><small>KASUS 2 • SIA MAGISTER</small><h1>Coretax</h1><p>1 Januari, Go Live</p></div>
+  <nav id="nav">
+    <button class="active" data-view="briefing">01 Briefing Proyek</button>
+    <button data-view="timeline">02 Timeline & Arsitektur</button>
+    <button data-view="roles">03 Role & Impersonation</button>
+    <button data-view="incidents">04 Incident Board</button>
+    <button data-view="performance">05 Dashboard Kinerja</button>
+    <button data-view="matrix">06 Matriks Assurance</button>
+    <button data-view="decision">07 Keputusan Stabilisasi</button>
+  </nav>
+  <div class="progress-label"><span>Progres assurance SIA</span><b id="progressText">0%</b></div>
+  <div class="progress"><span id="progressBar"></span></div>
+  <button id="reset" class="secondary">Reset kasus</button>
+  <div class="source-key"><b>Prinsip bukti</b><span class="tag primary">Primer autentik</span><p>Angka, tanggal, dan kondisi inti berasal dari dokumen resmi DJP. Artefak antarmuka merupakan rekonstruksi pembelajaran.</p></div>
+</aside>
+<main>
+<header class="topbar"><div><small>RUANG KENDALI IMPLEMENTASI SISTEM INFORMASI AKUNTANSI</small><h2 id="viewTitle">Briefing Proyek</h2></div><div class="case-status">Kasus dunia nyata • Mode assurance</div></header>
+<section id="content" class="content"></section>
 </main>
+</div>
+<script src="data-coretax.js"></script>
+<script src="app-coretax.js"></script>
 </body>
 </html>
