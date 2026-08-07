@@ -1,4 +1,4 @@
-// Ekstensi non-server untuk kebutuhan kelas: ekspor notebook mahasiswa ke Markdown.
+// Ekstensi non-server untuk kebutuhan kelas: ekspor berkas kerja mahasiswa ke Markdown.
 const renderNotebookDasar=renderNotebook;
 renderNotebook=function(){
   renderNotebookDasar();
@@ -6,7 +6,7 @@ renderNotebook=function(){
   if(card){
     const wrap=document.createElement('div');
     wrap.className='export-actions';
-    wrap.innerHTML='<button class="secondary export-btn" onclick="exportNotebookMarkdown()">Ekspor notebook (.md)</button><small>File dibuat di perangkat Anda; tidak ada data yang dikirim ke server.</small>';
+    wrap.innerHTML='<button class="secondary export-btn" onclick="exportNotebookMarkdown()">Ekspor berkas kerja (.md)</button><small>File dibuat di perangkat Anda; tidak ada data yang dikirim ke server.</small>';
     card.appendChild(wrap);
   }
 };
@@ -16,7 +16,7 @@ function exportNotebookMarkdown(){
   const selectedProcedures=CASE_DATA.procedures.filter((_,i)=>state['proc-'+i]);
   const selectedEvidence=CASE_DATA.evidence.filter((_,i)=>state['ev-'+i]);
   const lines=[
-    '# Berkas Kerja Investigasi — Citibank Indonesia: 117 Transfer','',
+    '# Berkas Kerja Analisis SIA — Citibank Indonesia: 117 Transfer','',
     `Tanggal ekspor: ${new Date().toLocaleString('id-ID')}`,'',
     '## Fakta terverifikasi',state.facts||'_Belum diisi_','',
     '## Inferensi / hipotesis',state.inference||'_Belum diisi_','',
@@ -32,7 +32,7 @@ function exportNotebookMarkdown(){
   ];
   const blob=new Blob([lines.join('\n')],{type:'text/markdown;charset=utf-8'});
   const url=URL.createObjectURL(blob),a=document.createElement('a');
-  a.href=url;a.download='Berkas_Kerja_Citibank_117_Transfer.md';document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url);
+  a.href=url;a.download='Berkas_Kerja_Analisis_SIA_Citibank_117_Transfer.md';document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url);
 }
 function saveNotebookSilently(){
   ['facts','inference','risk','expectedControl','evidenceNote'].forEach(k=>{const el=document.querySelector('#'+k);if(el)state[k]=el.value});
