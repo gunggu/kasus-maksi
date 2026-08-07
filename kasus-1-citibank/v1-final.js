@@ -11,7 +11,6 @@ function interviewedWitnessCount(){
   return CASE_DATA.witnesses.filter((_,i)=>state['witqa-'+i]).length;
 }
 
-// Tahap bukti kini bergantung pada aktivitas analitis, bukan sekadar klik artefak.
 currentStage=function(){
   const tx=analyzedTransactionCount();
   const ct=analyzedControlCount();
@@ -22,7 +21,6 @@ currentStage=function(){
   return 1;
 };
 
-// Transaksi baru dianggap dianalisis setelah ada catatan substantif singkat.
 openTx=function(i){
   const t=CASE_DATA.transactions[i];
   state['tx-'+i]=true;save();
@@ -42,7 +40,6 @@ function saveTxAnalysis(i){
   alert(n>=15?'Analisis transaksi tersimpan.':'Catatan masih terlalu singkat untuk dihitung sebagai analisis.');
 }
 
-// Catatan kontrol harus substantif agar membuka tahap wawancara.
 const openControlV1Dasar=openControl;
 openControl=function(i){
   openControlV1Dasar(i);
@@ -57,7 +54,6 @@ openControl=function(i){
   }
 };
 
-// Membuka kartu saksi saja tidak cukup; minimal satu jawaban harus benar-benar dibaca.
 const showWitnessAnswerV1Dasar=showWitnessAnswer;
 showWitnessAnswer=function(i,j){
   showWitnessAnswerV1Dasar(i,j);
@@ -66,7 +62,6 @@ showWitnessAnswer=function(i,j){
   save();updateProgress();
 };
 
-// Status tahap dibuat transparan agar mahasiswa tahu apa yang masih dibutuhkan.
 const stageBoxV1Dasar=stageBox;
 stageBox=function(){
   const base=stageBoxV1Dasar();
@@ -75,17 +70,16 @@ stageBox=function(){
   return base+`<div class="stage-requirement"><b>Syarat tahap berikutnya:</b> ${req}</div>`;
 };
 
-// Istilah antarmuka difokuskan pada SIA, bukan forensik.
 const renderNotebookV1Dasar=renderNotebook;
 renderNotebook=function(){
   renderNotebookV1Dasar();
+  $('#viewTitle').textContent='Berkas Kerja Analisis SIA';
   const h=document.querySelector('#content .section-head h3');
   const p=document.querySelector('#content .section-head p');
   if(h)h.textContent='Berkas Kerja Analisis SIA';
   if(p)p.textContent='Pisahkan fakta, inferensi, risiko, kontrol, bukti, dan keterbatasan sebelum menyimpulkan.';
 };
 
-// Glosarium ringkas untuk mahasiswa semester 1; sengaja ditempatkan di Briefing, bukan menu baru.
 CASE_DATA.glossary=[
   ['TPS','Transaction Processing System: sistem yang menangkap, memvalidasi, memproses, dan mencatat transaksi rutin.'],
   ['Transaction validity','Apakah transaksi memang sah/nyata dan layak diproses, bukan hanya apakah perhitungannya benar.'],
@@ -103,13 +97,14 @@ const renderBriefingV1Dasar=renderBriefing;
 renderBriefing=function(){
   renderBriefingV1Dasar();
   const root=document.querySelector('#content');if(!root)return;
+  const eyebrow=root.querySelector('.hero .eyebrow');
+  if(eyebrow)eyebrow.textContent='MISI ANALISIS SIA';
   const glossary=document.createElement('section');
   glossary.className='glossary-block';
   glossary.innerHTML=`<div class="section-head"><div><h3>Glosarium Singkat SIA</h3><p>Gunakan istilah ini saat berdiskusi. Anda tidak perlu menghafal definisi; fokus pada penerapannya dalam kasus.</p></div></div><div class="glossary-grid">${CASE_DATA.glossary.map(([term,def])=>`<details><summary>${term}</summary><p>${def}</p></details>`).join('')}</div>`;
   root.appendChild(glossary);
 };
 
-// Progress tambahan merefleksikan aktivitas analisis, bukan jumlah klik.
 const updateProgressV1Dasar=updateProgress;
 updateProgress=function(){
   updateProgressV1Dasar();
@@ -118,3 +113,13 @@ updateProgress=function(){
   const pct=Math.min(100,base+activity);
   $('#progressText').textContent=pct+'%';$('#progressBar').style.width=pct+'%';
 };
+
+// Selaraskan reset dengan framing SIA.
+const resetBtn=document.querySelector('#reset');
+if(resetBtn){
+  resetBtn.onclick=()=>{
+    if(confirm('Hapus seluruh progres analisis SIA untuk kasus ini?')){
+      localStorage.removeItem('kasus-citibank-state');location.reload();
+    }
+  };
+}
