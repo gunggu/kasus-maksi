@@ -39,56 +39,31 @@ function renderMatrixRKB(){
   <div class="rkb-guidance"><b>Aturan kualitas:</b><span>Jangan menulis kesimpulan tanpa bukti spesifik.</span><span>Pisahkan bukti primer dari inferensi.</span><span>Nyatakan keterbatasan sebelum memberi penilaian.</span></div>
   <div class="table-wrap rkb-wrap"><table class="rkb-table"><thead><tr><th>ID</th><th>Isu / fakta</th><th>Risiko / assertion</th><th>Kontrol</th><th>Bukti</th><th>Keterbatasan</th><th>Kesimpulan / tindakan</th><th></th></tr></thead><tbody>${body}</tbody></table></div>
   <div class="rkb-actions"><button onclick="tambahBarisRKB()">+ Tambah baris</button><button class="secondary" onclick="simpanRKB()">Simpan matriks</button><button class="secondary" onclick="exportRKBMarkdown()">Ekspor .md</button><button class="secondary" onclick="exportRKBCsv()">Ekspor .csv</button></div>
-  <div class="prompt"><b>Target minimum:</b> isi sekurang-kurangnya tiga baris yang mewakili (1) otorisasi transaksi, (2) pemisahan/verifikasi tugas, dan (3) monitoring atau deteksi pola transaksi.</div>`;
+  <div class="prompt"><b>Target minimum:</b> isi sekurang-kurangnya tiga baris lengkap yang mewakili (1) otorisasi transaksi, (2) pemisahan/verifikasi tugas, dan (3) monitoring atau deteksi pola transaksi. Kesimpulan akhir tidak akan dibuka sebelum target ini terpenuhi.</div>`;
   document.querySelectorAll('[data-rkb]').forEach(el=>el.addEventListener('input',()=>{
     const i=Number(el.dataset.i),field=el.dataset.rkb;
     state.rkbRows[i][field]=el.value;
   }));
 }
 
-function simpanRKB(){
-  save();updateProgress();
-  alert('Matriks Risiko–Kontrol–Bukti tersimpan di browser ini.');
-}
-function tambahBarisRKB(){
-  const rows=matrixRows();
-  rows.push({id:`RKB-${String(rows.length+1).padStart(2,'0')}`,isu:'',risiko:'',kontrol:'',bukti:'',keterbatasan:'',kesimpulan:''});
-  save();renderMatrixRKB();
-}
-function hapusBarisRKB(i){
-  const rows=matrixRows();
-  if(rows.length<=1)return alert('Minimal satu baris harus dipertahankan.');
-  rows.splice(i,1);rows.forEach((r,j)=>r.id=`RKB-${String(j+1).padStart(2,'0')}`);save();renderMatrixRKB();
-}
-function rkbFilledCount(){
-  return matrixRows().filter(r=>r.isu&&r.risiko&&r.kontrol&&r.bukti&&r.keterbatasan&&r.kesimpulan).length;
-}
-function exportRKBMarkdown(){
-  simpanRKB();
-  const lines=['# Matriks Risiko–Kontrol–Bukti — Kasus Citibank','',`Tanggal ekspor: ${new Date().toLocaleString('id-ID')}`,''];
-  matrixRows().forEach(r=>{
-    lines.push(`## ${r.id}`,'',`**Isu/fakta:** ${r.isu||'-'}`,'',`**Risiko/assertion:** ${r.risiko||'-'}`,'',`**Kontrol:** ${r.kontrol||'-'}`,'',`**Bukti:** ${r.bukti||'-'}`,'',`**Keterbatasan:** ${r.keterbatasan||'-'}`,'',`**Kesimpulan/tindakan:** ${r.kesimpulan||'-'}`,'');
-  });
-  unduhTeks('Matriks_Risiko_Kontrol_Bukti_Citibank.md',lines.join('\n'),'text/markdown;charset=utf-8');
-}
-function exportRKBCsv(){
-  simpanRKB();
-  const esc=v=>`"${String(v||'').replaceAll('"','""')}"`;
-  const lines=[['ID','Isu/Fakta','Risiko/Assertion','Kontrol','Bukti','Keterbatasan','Kesimpulan/Tindakan'].map(esc).join(',')];
-  matrixRows().forEach(r=>lines.push([r.id,r.isu,r.risiko,r.kontrol,r.bukti,r.keterbatasan,r.kesimpulan].map(esc).join(',')));
-  unduhTeks('Matriks_Risiko_Kontrol_Bukti_Citibank.csv','\ufeff'+lines.join('\n'),'text/csv;charset=utf-8');
-}
-function unduhTeks(nama,isi,tipe){
-  const blob=new Blob([isi],{type:tipe}),url=URL.createObjectURL(blob),a=document.createElement('a');
-  a.href=url;a.download=nama;document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url);
-}
+function simpanRKB(){save();updateProgress();alert('Matriks Risiko–Kontrol–Bukti tersimpan di browser ini.')}
+function tambahBarisRKB(){const rows=matrixRows();rows.push({id:`RKB-${String(rows.length+1).padStart(2,'0')}`,isu:'',risiko:'',kontrol:'',bukti:'',keterbatasan:'',kesimpulan:''});save();renderMatrixRKB()}
+function hapusBarisRKB(i){const rows=matrixRows();if(rows.length<=1)return alert('Minimal satu baris harus dipertahankan.');rows.splice(i,1);rows.forEach((r,j)=>r.id=`RKB-${String(j+1).padStart(2,'0')}`);save();renderMatrixRKB()}
+function rkbFilledCount(){return matrixRows().filter(r=>r.isu&&r.risiko&&r.kontrol&&r.bukti&&r.keterbatasan&&r.kesimpulan).length}
+function exportRKBMarkdown(){simpanRKB();const lines=['# Matriks Risiko–Kontrol–Bukti — Kasus Citibank','',`Tanggal ekspor: ${new Date().toLocaleString('id-ID')}`,''];matrixRows().forEach(r=>{lines.push(`## ${r.id}`,'',`**Isu/fakta:** ${r.isu||'-'}`,'',`**Risiko/assertion:** ${r.risiko||'-'}`,'',`**Kontrol:** ${r.kontrol||'-'}`,'',`**Bukti:** ${r.bukti||'-'}`,'',`**Keterbatasan:** ${r.keterbatasan||'-'}`,'',`**Kesimpulan/tindakan:** ${r.kesimpulan||'-'}`,'')});unduhTeks('Matriks_Risiko_Kontrol_Bukti_Citibank.md',lines.join('\n'),'text/markdown;charset=utf-8')}
+function exportRKBCsv(){simpanRKB();const esc=v=>`"${String(v||'').replaceAll('"','""')}"`;const lines=[['ID','Isu/Fakta','Risiko/Assertion','Kontrol','Bukti','Keterbatasan','Kesimpulan/Tindakan'].map(esc).join(',')];matrixRows().forEach(r=>lines.push([r.id,r.isu,r.risiko,r.kontrol,r.bukti,r.keterbatasan,r.kesimpulan].map(esc).join(',')));unduhTeks('Matriks_Risiko_Kontrol_Bukti_Citibank.csv','\ufeff'+lines.join('\n'),'text/csv;charset=utf-8')}
+function unduhTeks(nama,isi,tipe){const blob=new Blob([isi],{type:tipe}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=nama;document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url)}
+
+// Matriks adalah prasyarat substantif untuk kesimpulan akhir.
+const renderDecisionDasarRKB=renderDecision;
+renderDecision=function(){
+  if(rkbFilledCount()<3){
+    $('#content').innerHTML=`${stageBox()}<div class="locked"><h3>Kesimpulan belum dapat dibuka</h3><p>Anda sudah mencapai tahap akhir bukti, tetapi matriks Risiko–Kontrol–Bukti belum cukup lengkap. Isi minimal tiga baris lengkap sebelum memberikan kesimpulan profesional.</p><p><b>${rkbFilledCount()}/3 baris lengkap.</b></p><button onclick="view='matrix';render()">Buka Matriks R-K-B</button></div>`;
+    return;
+  }
+  renderDecisionDasarRKB();
+};
 
 // Integrasikan kelengkapan RKB ke progress bar tanpa mengubah logika inti kasus.
 const updateProgressDasarRKB=updateProgress;
-updateProgress=function(){
-  updateProgressDasarRKB();
-  const base=parseInt($('#progressText').textContent)||0;
-  const bonus=Math.min(8,rkbFilledCount()*2);
-  const pct=Math.min(100,base+bonus);
-  $('#progressText').textContent=pct+'%';$('#progressBar').style.width=pct+'%';
-};
+updateProgress=function(){updateProgressDasarRKB();const base=parseInt($('#progressText').textContent)||0;const bonus=Math.min(8,rkbFilledCount()*2);const pct=Math.min(100,base+bonus);$('#progressText').textContent=pct+'%';$('#progressBar').style.width=pct+'%'};
