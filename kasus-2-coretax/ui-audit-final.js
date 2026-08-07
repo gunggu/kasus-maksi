@@ -23,11 +23,22 @@ render=function(){
   }
   if(view==='matrix'){
     const h=document.querySelector('#content .section-head h3');if(h)h.textContent='Matriks Evaluasi SIA';
-    document.querySelectorAll('#content table.matrix th').forEach(th=>{if(th.textContent==='Tindakan')th.textContent='Tindakan prioritas';});
+    const desc=document.querySelector('#content .section-head p');if(desc)desc.textContent='Hubungkan masalah dengan hipotesis akar penyebab, risiko SIA, pengendalian, bukti, dan tindakan. Jangan menyatakan sebab sebagai fakta bila bukti publik hanya mendukung hipotesis.';
+    document.querySelectorAll('#content table.matrix th').forEach(th=>{
+      th.textContent=th.textContent.replace('Kontrol','Pengendalian').replace('Tindakan','Tindakan prioritas');
+    });
   }
   if(view==='decision'){
     const h=document.querySelector('#content .section-head h3');if(h)h.textContent='Keputusan Komite Pengarah';
     const p=document.querySelector('#content .section-head p');if(p)p.textContent='Pilih strategi stabilisasi berdasarkan bukti dan keterbatasannya, bukan berdasarkan hasil sejarah yang sudah diketahui.';
+    const labels=document.querySelectorAll('#content .decision-options label span');
+    const txt=[
+      'Lanjut penuh dengan remediasi terkontrol',
+      'Penerapan bertahap atau pembatasan fitur tertentu',
+      'Operasi paralel atau jalur cadangan terbatas untuk proses kritis',
+      'Pengembalian lebih luas ke sistem/proses sebelumnya'
+    ];
+    labels.forEach((x,i)=>{if(txt[i])x.textContent=txt[i]});
   }
 };
 
@@ -38,7 +49,7 @@ CORE_DATA.glossary=[
   ['Tinjauan pascaimplementasi','Evaluasi setelah go-live untuk menilai apakah sistem mencapai tujuan dan risiko telah dikendalikan.'],
   ['Manajemen Identitas & Akses (IAM)','Pengelolaan identitas, autentikasi, peran, dan hak akses.'],
   ['Impersonasi','Mekanisme pengguna personal bertindak mewakili entitas/badan yang berhak diwakilinya.'],
-  ['Validasi antarmuka','Kontrol yang memastikan data antar sistem/format memenuhi aturan sebelum diterima.'],
+  ['Validasi antarmuka','Pengendalian yang memastikan data antar sistem/format memenuhi aturan sebelum diterima.'],
   ['Latensi','Waktu tunggu yang dibutuhkan sistem untuk merespons suatu fungsi.'],
   ['Throughput','Jumlah transaksi/dokumen yang dapat diproses dalam satu satuan waktu.'],
   ['Kapasitas','Kemampuan infrastruktur/aplikasi menangani beban tertentu.'],
@@ -46,5 +57,13 @@ CORE_DATA.glossary=[
   ['Hipotesis akar penyebab','Penjelasan sementara tentang penyebab suatu gejala yang masih harus diuji dengan bukti tambahan.'],
   ['Triangulasi bukti','Membandingkan beberapa jenis/sumber bukti sebelum mengambil kesimpulan.']
 ];
+
+// Nama file ekspor dibuat konsisten dengan istilah antarmuka Indonesia.
+exportMatrix=function(){
+  const esc=v=>'"'+String(v||'').replaceAll('"','""')+'"';
+  const lines=[['ID','Masalah','Hipotesis Akar Penyebab','Risiko SIA','Pengendalian','Bukti','Tindakan Prioritas'].map(esc).join(',')];
+  matrixRows().forEach(r=>lines.push([r.id,r.issue,r.cause,r.risk,r.control,r.evidence,r.action].map(esc).join(',')));
+  download('Matriks_Evaluasi_SIA_Coretax.csv','\ufeff'+lines.join('\n'),'text/csv;charset=utf-8');
+};
 
 if(view==='briefing')render();
