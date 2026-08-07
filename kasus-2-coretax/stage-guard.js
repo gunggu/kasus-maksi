@@ -3,11 +3,10 @@ function performanceAnalyzed(){return String(state.performanceNote||'').trim().l
 stage=function(){
   if(analyzedDesignCount()<2)return 1;
   if(classifiedIncidentCount()<4)return 2;
-  if(matrixComplete()<3)return 3;
+  if(!performanceAnalyzed() || matrixComplete()<3)return 3;
   return 4;
 };
 
-const stageBoxCoreDasar=stageBox;
 stageBox=function(){
   const s=stage(),d=CORE_DATA.stages[s-1];
   let req='Syarat keputusan terpenuhi';
