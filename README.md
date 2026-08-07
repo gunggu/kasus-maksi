@@ -5,7 +5,7 @@ Repositori ini berisi dua aplikasi kasus dunia nyata untuk pembelajaran Sistem I
 ## Struktur kasus
 
 ### Kasus 1 — Citibank Indonesia: 117 Transfer
-Aplikasi investigasi forensik berbasis bukti publik mengenai pemrosesan transfer, otorisasi, pemisahan tugas, verifikasi, jejak audit, kualitas bukti, dan pengawasan transaksi.
+Aplikasi analisis Sistem Informasi Akuntansi berbasis bukti publik mengenai pemrosesan transfer, otorisasi, pemisahan tugas, verifikasi, jejak audit, kualitas bukti, dan pengawasan transaksi.
 
 Status: **kandidat v1.0; layak untuk pilot kelas terbatas setelah uji browser live**.
 
@@ -16,13 +16,12 @@ Fitur utama:
 - artefak kontrol dan formulir rekonstruksi;
 - wawancara berbasis sumber publik;
 - evidence provenance dan reliability labels;
-- notebook fakta vs inferensi;
-- prosedur investigasi lanjutan;
+- Berkas Kerja Analisis SIA;
 - Matriks Risiko–Kontrol–Bukti (R-K-B) interaktif;
-- ekspor notebook ke Markdown;
+- ekspor berkas kerja ke Markdown;
 - ekspor R-K-B ke Markdown dan CSV;
-- decision gate yang mensyaratkan minimal tiga baris R-K-B lengkap;
-- legal nuance yang memisahkan analisis kontrol dari tanggung jawab pidana.
+- decision gate berbasis aktivitas analitis;
+- legal nuance yang memisahkan analisis SIA/kontrol dari tanggung jawab pidana.
 
 Dokumentasi:
 - [README Kasus 1](kasus-1-citibank/README.md)
@@ -32,20 +31,38 @@ Dokumentasi:
 - [Audit Kesiapan v1.0](kasus-1-citibank/AUDIT_KESIAPAN_V1.md)
 
 ### Kasus 2 — Coretax DJP: 1 Januari, Go Live
-Aplikasi assurance pengembangan sistem dan pascaimplementasi mengenai requirement, integrasi, role access, XML, kapasitas, insiden, stabilisasi, dan keputusan implementasi.
+Aplikasi assurance pengembangan dan implementasi Sistem Informasi Akuntansi mengenai business process redesign, cutover, role/PIC/impersonation, XML/interface, incident management, capacity, latency, throughput, stabilisasi, dan keputusan Steering Committee.
 
-Status: **menu dan arsitektur kasus telah disiapkan; pengembangan penuh dilakukan setelah pilot Kasus 1 stabil**.
+Status: **versi pilot awal telah dibangun; siap untuk uji browser dan audit pedagogis lanjutan**.
+
+Fitur utama:
+- Ruang Kendali Implementasi SIA yang berbeda dari aplikasi Citibank;
+- staged release empat tahap;
+- timeline cutover autentik;
+- role & impersonation analysis;
+- Incident Board dengan klasifikasi akar masalah;
+- dashboard latency, capacity, throughput, dan volume berbasis data resmi DJP;
+- Matriks Assurance masalah → akar penyebab → risiko → kontrol → bukti → tindakan;
+- decision gate untuk strategi stabilisasi;
+- ekspor Matriks Assurance ke CSV dan briefing Steering Committee ke Markdown;
+- scaffolding pertemuan 120 menit dan glosarium semester 1.
+
+Dokumentasi:
+- [README Kasus 2](kasus-2-coretax/README.md)
+- [Panduan Mahasiswa Kasus 2](kasus-2-coretax/PANDUAN_MAHASISWA.md)
+- [Panduan Dosen Kasus 2](kasus-2-coretax/PANDUAN_DOSEN.md)
+- [Audit Kesiapan Pilot Kasus 2](kasus-2-coretax/AUDIT_KESIAPAN_PILOT.md)
 
 ## Prinsip bukti
-Setiap artefak kasus diberi klasifikasi sumber:
+Setiap artefak kasus dibedakan menurut provenance:
 
 - **Bukti primer autentik** — putusan pengadilan, dokumen regulator, dokumen resmi instansi.
 - **Bukti sekunder autentik** — peliputan kontemporer yang kredibel.
 - **Data turunan** — data terstruktur yang diekstrak dari bukti autentik.
-- **Rekonstruksi pembelajaran** — antarmuka, formulir, atau field tambahan yang dibuat untuk simulasi dan tidak diklaim sebagai dokumen asli.
+- **Rekonstruksi pembelajaran** — antarmuka, formulir, kategori analitis, atau field tambahan yang dibuat untuk pembelajaran dan tidak diklaim sebagai dokumen asli.
 
 ## Privasi dan integritas akademik
-Nomor rekening dan data pribadi ditampilkan secara terbatas atau dimasking pada antarmuka mahasiswa. Rekonstruksi pembelajaran tidak boleh disajikan sebagai dokumen historis asli.
+Nomor rekening dan data pribadi ditampilkan secara terbatas atau dimasking bila relevan. Rekonstruksi pembelajaran tidak boleh disajikan sebagai dokumen historis asli.
 
 ## Teknologi
-Aplikasi dirancang sebagai situs statis HTML/CSS/JavaScript agar dapat dijalankan melalui GitHub Pages tanpa backend. Progres mahasiswa disimpan hanya di browser melalui `localStorage`.
+Kedua aplikasi dirancang sebagai situs statis HTML/CSS/JavaScript untuk GitHub Pages tanpa backend. Progres mahasiswa disimpan hanya di browser melalui `localStorage`.
