@@ -23,13 +23,6 @@ Fitur utama:
 - gerbang keputusan berbasis aktivitas analitis;
 - pemisahan yang jelas antara analisis SIA/pengendalian dan tanggung jawab hukum.
 
-Dokumentasi:
-- [README Kasus 1](kasus-1-citibank/README.md)
-- [Panduan Mahasiswa](kasus-1-citibank/PANDUAN_MAHASISWA.md)
-- [Panduan Dosen](kasus-1-citibank/PANDUAN_DOSEN.md)
-- [Audit Pedagogis](kasus-1-citibank/AUDIT_PEDAGOGIS.md)
-- [Audit Kesiapan v1.0](kasus-1-citibank/AUDIT_KESIAPAN_V1.md)
-
 ### Kasus 2 — Coretax DJP: 1 Januari, Go Live
 Aplikasi evaluasi pengembangan, implementasi, dan stabilisasi Sistem Informasi Akuntansi mengenai desain ulang proses bisnis, cutover, hak akses/PIC/impersonasi, XML/antarmuka, insiden produksi, kapasitas, latensi, throughput, triangulasi bukti, dan keputusan stabilisasi.
 
@@ -43,31 +36,28 @@ Fitur utama:
 - Papan Insiden dengan **hipotesis akar penyebab**, bukan klaim sebab final;
 - triangulasi bukti antara DJP, pengawasan DPR, dan perspektif pengguna/bisnis;
 - dashboard latensi, kapasitas, throughput, volume, dan periode pengukuran;
-- Dashboard Kinerja wajib dianalisis sebelum Matriks Evaluasi SIA;
 - Matriks Evaluasi: masalah → hipotesis akar penyebab → risiko → pengendalian → bukti → tindakan;
-- gerbang keputusan untuk strategi stabilisasi;
-- ekspor Matriks Evaluasi ke CSV dan briefing Komite Pengarah ke Markdown;
-- scaffolding pertemuan 120 menit dan glosarium semester 1.
+- gerbang keputusan untuk strategi stabilisasi.
 
-Dokumentasi:
-- [README Kasus 2](kasus-2-coretax/README.md)
-- [Panduan Mahasiswa Kasus 2](kasus-2-coretax/PANDUAN_MAHASISWA.md)
-- [Panduan Dosen Kasus 2](kasus-2-coretax/PANDUAN_DOSEN.md)
-- [Audit Kesiapan Kasus 2](kasus-2-coretax/AUDIT_KESIAPAN_PILOT.md)
+## Panduan pembelajaran
+
+- **Panduan Mahasiswa:** tersedia terbuka melalui `panduan-mahasiswa/index.html` dan tidak memerlukan sandi.
+- **Area Dosen:** tersedia melalui `area-dosen/index.html`. Panduan dosen untuk kedua kasus disimpan sebagai ciphertext AES-GCM dan didekripsi di browser menggunakan sandi dosen. Sandi tidak disimpan di source code maupun dikirim ke server.
+
+File `PANDUAN_DOSEN.md` plaintext telah dihapus dari branch `main` setelah migrasi ke Area Dosen terenkripsi.
+
+### Catatan keamanan penting
+Repositori ini bersifat publik. Karena panduan dosen pernah tersimpan sebagai plaintext pada commit sebelumnya, salinan historis dapat tetap ada pada riwayat Git. Area Dosen terenkripsi melindungi versi yang digunakan saat ini dari akses langsung melalui GitHub Pages, tetapi bukan pengganti autentikasi server atau repositori privat. Untuk menghapus paparan historis secara lebih kuat diperlukan rewrite riwayat Git atau pemindahan materi dosen ke repositori privat.
 
 ## Audit gabungan
 - [Audit Konten dan Visual Dua Kasus — 7 Agustus 2026](AUDIT_KONTEN_VISUAL_DUA_KASUS_2026-08-07.md)
 
 ## Prinsip bukti
 Setiap artefak kasus dibedakan menurut provenance:
-
 - **Bukti primer autentik** — putusan pengadilan, dokumen regulator, dokumen resmi instansi.
 - **Bukti sekunder autentik** — peliputan kontemporer yang kredibel.
 - **Data turunan** — data terstruktur yang diekstrak dari bukti autentik.
 - **Rekonstruksi pembelajaran** — antarmuka, formulir, kategori analitis, atau field tambahan yang dibuat untuk pembelajaran dan tidak diklaim sebagai dokumen asli.
 
-## Privasi dan integritas akademik
-Nomor rekening dan data pribadi ditampilkan secara terbatas atau dimasking bila relevan. Rekonstruksi pembelajaran tidak boleh disajikan sebagai dokumen historis asli.
-
 ## Teknologi
-Kedua aplikasi dirancang sebagai situs statis HTML/CSS/JavaScript untuk GitHub Pages tanpa backend. Progres mahasiswa disimpan hanya di browser melalui `localStorage`.
+Kedua aplikasi menggunakan static HTML/CSS/JavaScript untuk GitHub Pages tanpa backend. Progres mahasiswa disimpan hanya di browser melalui `localStorage`. Area Dosen menggunakan Web Crypto API dengan PBKDF2-SHA256 dan AES-GCM untuk dekripsi lokal.
