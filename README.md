@@ -31,18 +31,20 @@ Dokumentasi:
 - [Audit Kesiapan v1.0](kasus-1-citibank/AUDIT_KESIAPAN_V1.md)
 
 ### Kasus 2 — Coretax DJP: 1 Januari, Go Live
-Aplikasi assurance pengembangan dan implementasi Sistem Informasi Akuntansi mengenai business process redesign, cutover, role/PIC/impersonation, XML/interface, incident management, capacity, latency, throughput, stabilisasi, dan keputusan Steering Committee.
+Aplikasi assurance pengembangan, implementasi, dan stabilisasi Sistem Informasi Akuntansi mengenai business process redesign, cutover, role/PIC/impersonation, XML/interface, incident management, capacity, latency, throughput, stabilisasi, evidence triangulation, dan keputusan Steering Committee.
 
-Status: **versi pilot awal telah dibangun; siap untuk uji browser dan audit pedagogis lanjutan**.
+Status: **kandidat v1.0; layak untuk pilot kelas 120 menit setelah uji runtime live**.
 
 Fitur utama:
 - Ruang Kendali Implementasi SIA yang berbeda dari aplikasi Citibank;
-- staged release empat tahap;
+- staged release empat tahap berbasis aktivitas analitis;
 - timeline cutover autentik;
 - role & impersonation analysis;
-- Incident Board dengan klasifikasi akar masalah;
-- dashboard latency, capacity, throughput, dan volume berbasis data resmi DJP;
-- Matriks Assurance masalah → akar penyebab → risiko → kontrol → bukti → tindakan;
+- Incident Board dengan **hipotesis akar penyebab**, bukan klaim sebab final;
+- evidence triangulation antara DJP, oversight DPR, dan perspektif pengguna/bisnis;
+- dashboard latency, capacity, throughput, volume, dan periode pengukuran;
+- Dashboard Kinerja wajib dianalisis sebelum Matriks Assurance;
+- Matriks Assurance masalah → hipotesis akar penyebab → risiko → kontrol → bukti → tindakan;
 - decision gate untuk strategi stabilisasi;
 - ekspor Matriks Assurance ke CSV dan briefing Steering Committee ke Markdown;
 - scaffolding pertemuan 120 menit dan glosarium semester 1.
@@ -51,7 +53,7 @@ Dokumentasi:
 - [README Kasus 2](kasus-2-coretax/README.md)
 - [Panduan Mahasiswa Kasus 2](kasus-2-coretax/PANDUAN_MAHASISWA.md)
 - [Panduan Dosen Kasus 2](kasus-2-coretax/PANDUAN_DOSEN.md)
-- [Audit Kesiapan Pilot Kasus 2](kasus-2-coretax/AUDIT_KESIAPAN_PILOT.md)
+- [Audit Kesiapan Kasus 2](kasus-2-coretax/AUDIT_KESIAPAN_PILOT.md)
 
 ## Prinsip bukti
 Setiap artefak kasus dibedakan menurut provenance:
