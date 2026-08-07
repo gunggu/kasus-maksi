@@ -1,50 +1,80 @@
 # Panduan Mahasiswa — Kasus 1 Citibank Indonesia: 117 Transfer
 
 ## Peran Anda
-Anda bertindak sebagai **tim review forensik independen** yang melapor kepada Komite Audit. Tujuan Anda bukan menebak hasil perkara, melainkan membangun kesimpulan profesional dari bukti yang tersedia.
+Anda bekerja dalam kelompok sebagai **tim review forensik independen** yang melapor kepada Komite Audit. Tujuan Anda bukan menebak hasil perkara, tetapi menjawab empat pertanyaan kasus dengan bukti yang tersedia di aplikasi.
+
+## Waktu pertemuan
+Pertemuan berlangsung **120 menit**. Anda tidak perlu membuka semua menu atau seluruh bukti. Fokus pada bukti yang paling relevan untuk menjawab pertanyaan kasus.
+
+## Urutan kerja
+1. **0–10 menit — Pembukaan.** Dengarkan tujuan, aturan sumber bukti, pembagian kelompok, dan output yang harus dihasilkan.
+2. **10–25 menit — Deskripsi kasus & orientasi aplikasi.** Pahami konteks kasus, peran Anda, batas data, dan cara membaca label sumber.
+3. **25–30 menit — Pembagian peran.** Tentukan navigator aplikasi, pencatat bukti, analis kontrol, dan penyaji.
+4. **30–70 menit — Investigasi kelompok.** Gunakan transaksi, jaringan rekening, kontrol, dan wawancara untuk menjawab empat pertanyaan kasus.
+5. **70–90 menit — Matriks R-K-B.** Isi minimal tiga baris lengkap.
+6. **90–105 menit — Persiapan presentasi.** Semua kelompok menyiapkan maksimum lima slide.
+7. **105–117 menit — Presentasi.** Satu kelompok dipilih untuk presentasi 8 menit dan 4 menit tanggapan kelas.
+8. **117–120 menit — Penutup dosen.** Catat pelajaran utama dan bandingkan dengan hasil kelompok Anda.
+
+## Pembagian peran yang disarankan
+- **Navigator aplikasi:** membuka transaksi dan bukti.
+- **Pencatat bukti:** mencatat ID sumber, fakta, dan keterbatasan.
+- **Analis kontrol:** menghubungkan risiko, kontrol, dan bukti.
+- **Penyaji:** menjaga struktur jawaban dan menyiapkan presentasi.
+
+Jika anggota kelompok lebih banyak, satu fungsi dapat dikerjakan oleh dua orang.
+
+## Empat pertanyaan kasus
+
+### P1 — Bagaimana transaksi seharusnya diproses?
+Rekonstruksikan alur instruksi transfer dari nasabah sampai dana diterima beneficiary. Pada titik mana saja seharusnya terdapat pengendalian?
+
+**Output:** satu diagram/alur singkat dan sedikitnya tiga titik kontrol.
+
+### P2 — Apa bukti terkuat yang menunjukkan adanya masalah pengendalian?
+Pilih tiga bukti atau indikator paling penting dari aplikasi. Jelaskan mana yang merupakan fakta terverifikasi, mana yang baru indikator, dan apa keterbatasannya.
+
+**Output:** tiga bukti/indikator dengan alasan pemilihan dan keterbatasan.
+
+### P3 — Kontrol apa yang bermasalah?
+Nilai apakah masalah utama lebih berkaitan dengan desain kontrol, pelaksanaan kontrol, override, atau monitoring. Gunakan bukti spesifik untuk mendukung penilaian.
+
+**Output:** minimal tiga baris Matriks Risiko–Kontrol–Bukti yang lengkap.
+
+### P4 — Apa yang seharusnya dilakukan bank?
+Berikan tiga rekomendasi prioritas yang realistis untuk mencegah atau mendeteksi kejadian serupa lebih dini. Nyatakan pula kesimpulan profesional kelompok dan apa yang masih belum dapat disimpulkan.
+
+**Output:** tiga rekomendasi prioritas + satu kesimpulan dengan keterbatasan.
+
+## Format presentasi kelompok — maksimum 5 slide
+1. **Alur transaksi dan titik kontrol**
+2. **Tiga bukti/indikator utama**
+3. **Analisis kontrol dan ringkasan R-K-B**
+4. **Tiga rekomendasi prioritas**
+5. **Kesimpulan profesional dan keterbatasan**
+
+Satu kelompok akan dipilih untuk presentasi **8 menit**, diikuti **4 menit** tanggapan atau pertanyaan dari kelas.
 
 ## Cara menggunakan aplikasi
-1. Mulai dari **Briefing** dan pahami batas bukti.
-2. Telaah sedikitnya tiga transaksi untuk membuka tahap pengendalian.
-3. Gunakan **Jaringan Rekening** untuk membentuk hipotesis, bukan kesimpulan.
-4. Nilai tujuan, desain, dan bukti operasi setiap kontrol.
-5. Setelah tahap wawancara terbuka, gunakan respons berbasis sumber untuk memperkuat atau membantah hipotesis Anda.
-6. Masukkan hanya bukti yang benar-benar relevan ke berkas kerja.
-7. Di **Notebook Investigasi**, pisahkan secara eksplisit: fakta, inferensi, risiko/assertion, kontrol yang diharapkan, bukti, dan keterbatasan.
-8. Lengkapi **Matriks Risiko–Kontrol–Bukti (R-K-B)** sedikitnya tiga baris. Setiap baris harus menghubungkan isu/fakta → risiko/assertion → kontrol → bukti → keterbatasan → kesimpulan/tindakan.
-9. Kesimpulan akhir baru dapat dibuka setelah tahap bukti keempat tercapai dan minimal tiga baris R-K-B lengkap.
-10. Ekspor notebook dan matriks R-K-B jika diminta dosen sebagai bagian berkas kerja.
+- Mulai dari **Briefing**.
+- Telaah sedikitnya tiga transaksi untuk membuka tahap pengendalian.
+- Gunakan **Jaringan Rekening** untuk membentuk hipotesis, bukan kesimpulan.
+- Nilai tujuan, desain, dan bukti operasi kontrol.
+- Setelah wawancara terbuka, gunakan respons berbasis sumber untuk memperkuat atau membantah hipotesis.
+- Di **Notebook Investigasi**, pisahkan fakta dan inferensi.
+- Isi minimal tiga baris **Matriks R-K-B** sebelum kesimpulan akhir dapat dibuka.
 
 ## Aturan penalaran
-- **Indikator bukan bukti final.** Beneficiary berulang, transaksi besar, atau konsentrasi verifikasi adalah alasan melakukan prosedur tambahan.
-- **Tidak ada generalisasi tanpa dasar.** Temuan atas dua formulir tidak otomatis berlaku untuk seluruh populasi.
-- **Sumber primer lebih kuat, tetapi tetap memiliki keterbatasan.** Putusan pengadilan bukan pengganti log sistem yang lengkap.
-- **Bedakan kesimpulan kontrol dan kesimpulan hukum.** Analisis SIA dapat menemukan kelemahan desain atau pelaksanaan kontrol tanpa menetapkan tanggung jawab pidana individu.
-- **Rekonstruksi bukan bukti historis.** Formulir simulasi hanya alat visualisasi proses.
-- **Tidak ada kesimpulan tanpa traceability.** Setiap kesimpulan pada matriks R-K-B harus merujuk bukti spesifik, bukan hanya intuisi.
+- **Indikator bukan bukti final.** Beneficiary berulang atau transaksi besar adalah alasan untuk prosedur tambahan.
+- **Jangan menggeneralisasi tanpa dasar.** Temuan atas dua formulir tidak otomatis berlaku bagi semua transaksi.
+- **Bedakan fakta dan inferensi.** Tuliskan apa yang benar-benar diketahui sebelum menuliskan interpretasi.
+- **Bedakan kesimpulan kontrol dan kesimpulan hukum.** Analisis SIA tidak menentukan tanggung jawab pidana individu.
+- **Rekonstruksi bukan bukti historis.** Formulir simulasi hanya alat untuk memahami proses.
 
-## Pertanyaan kunci
-- Bagaimana instruksi transaksi seharusnya masuk ke sistem?
-- Siapa yang seharusnya menginput, memverifikasi, dan mengotorisasi?
-- Bukti apa yang menunjukkan kontrol benar-benar dilaksanakan?
-- Apakah transaksi konsisten dengan profil nasabah dan beneficiary?
-- Apa yang masih belum diketahui?
-- Prosedur tambahan apa yang paling efisien dan paling meyakinkan?
+## Yang dinilai
+Dosen terutama menilai kualitas alasan Anda, bukan jumlah menu yang dibuka. Jawaban yang kuat harus menunjukkan hubungan:
 
-## Output yang disarankan
-Memo ringkas 800–1.200 kata dengan struktur:
-1. isu utama;
-2. fakta terverifikasi;
-3. analisis risiko dan kontrol;
-4. matriks Risiko–Kontrol–Bukti;
-5. kualitas/keterbatasan bukti;
-6. prosedur tambahan;
-7. kesimpulan profesional;
-8. rekomendasi desain kontrol.
-
-Lampirkan bila diminta:
-- `Berkas_Kerja_Citibank_117_Transfer.md`;
-- `Matriks_Risiko_Kontrol_Bukti_Citibank.md` atau `.csv`.
+**fakta/isu → risiko → kontrol → bukti → keterbatasan → kesimpulan/rekomendasi.**
 
 ## Integritas akademik
-Aplikasi tidak memberi “jawaban benar” otomatis. Gunakan AI hanya jika diizinkan dosen dan ungkapkan penggunaannya sesuai kebijakan mata kuliah. Jangan mengubah rekonstruksi menjadi seolah-olah dokumen historis asli.
+Gunakan AI hanya jika diizinkan dosen dan ungkapkan penggunaannya sesuai kebijakan mata kuliah. Jangan menyajikan rekonstruksi aplikasi sebagai dokumen historis asli.
