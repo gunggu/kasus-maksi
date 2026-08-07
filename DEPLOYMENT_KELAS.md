@@ -1,46 +1,50 @@
-# Deployment Kelas — Repo Source Private, Situs Mahasiswa Publik
+# Deployment Kelas — GitHub Pages dari Repo Publik
 
 ## Kondisi saat ini
-Repo `gunggu/kasus-maksi` bersifat **private**. Perubahan dari public ke private dapat membuat GitHub Pages lama otomatis tidak dipublikasikan, terutama pada akun yang tidak mendukung Pages dari private repository.
+Repo `gunggu/kasus-maksi` bersifat **public** agar GitHub Pages dapat diakses mahasiswa tanpa biaya tambahan dan tanpa login GitHub.
 
-## Opsi A — Tetap memakai repo private yang sama
-Gunakan opsi ini hanya jika akun GitHub mendukung GitHub Pages dari private repository (misalnya GitHub Pro/Team/Enterprise).
-
+## Aktivasi GitHub Pages
 1. Buka **Settings → Pages** pada repo `kasus-maksi`.
-2. Pada **Build and deployment**, pilih sumber deployment dari branch `main` / root sesuai konfigurasi sebelumnya.
-3. Simpan dan tunggu deployment baru selesai.
-4. Uji URL kelas tanpa login/incognito.
+2. Pada **Build and deployment**, pilih deployment dari branch.
+3. Gunakan branch `main` dan folder `/ (root)`.
+4. Simpan konfigurasi.
+5. Buka URL GitHub Pages dari browser incognito untuk memastikan mahasiswa dapat mengakses tanpa login.
 
-Jika menu Pages tidak mengizinkan publikasi dari private repo atau situs tetap memerlukan autentikasi, gunakan Opsi B.
+URL kelas yang diharapkan:
 
-## Opsi B — Rekomendasi: repo source private + repo deployment public
-Buat repo publik baru, misalnya `kasus-maksi-pages`.
+- Portal: `https://gunggu.github.io/kasus-maksi/`
+- Kasus 1: `https://gunggu.github.io/kasus-maksi/kasus-1-citibank/`
+- Kasus 2: `https://gunggu.github.io/kasus-maksi/kasus-2-coretax/`
+- Panduan Mahasiswa: `https://gunggu.github.io/kasus-maksi/panduan-mahasiswa/`
+- Area Dosen: `https://gunggu.github.io/kasus-maksi/area-dosen/`
 
-Repo publik deployment hanya boleh berisi file runtime yang diperlukan untuk kelas:
+## Model akses
+- **Panduan Mahasiswa**: terbuka tanpa sandi.
+- **Aplikasi Kasus 1 & 2**: terbuka tanpa sandi.
+- **Area Dosen**: menggunakan password dan dekripsi AES-GCM lokal di browser.
+- File panduan dosen plaintext tidak disimpan pada branch `main`.
 
-- `index.html`
-- `portal.css`
-- `panduan-mahasiswa/`
-- `kasus-1-citibank/` (file aplikasi mahasiswa/runtime)
-- `kasus-2-coretax/` (file aplikasi mahasiswa/runtime)
-- `area-dosen/` hanya jika tetap ingin Area Dosen tersedia dari situs kelas; isinya sudah terenkripsi dan tidak menyimpan sandi plaintext.
+## Catatan keamanan penting
+Repo ini pernah menyimpan panduan dosen plaintext pada commit historis sebelum enkripsi diterapkan. Karena repo sekarang publik, riwayat lama secara teknis dapat ditelusuri oleh pengguna yang memahami Git/GitHub.
 
-Jangan menyalin:
+Karena itu:
+- jangan menaruh informasi rahasia, data pribadi, kunci API, atau materi sensitif di Area Dosen;
+- jangan menganggap password Area Dosen sebagai perlindungan terhadap commit historis lama;
+- password hanya berfungsi sebagai pemisahan akses pada antarmuka GitHub Pages saat ini;
+- materi baru untuk dosen harus tetap disimpan hanya dalam payload terenkripsi.
 
-- riwayat Git repo `kasus-maksi`;
-- file audit internal yang tidak diperlukan mahasiswa;
-- dokumentasi pengembangan internal;
-- plaintext panduan dosen;
-- file sementara atau artefak lain yang tidak diperlukan runtime.
+Untuk eliminasi historis penuh dibutuhkan rewrite Git history atau repo deployment publik baru dengan history bersih.
 
-Aktifkan GitHub Pages pada repo publik deployment dari `main` / root.
-
-## Model akses yang disarankan
-
-- **`kasus-maksi` (private)** = source/master, audit, pengembangan, riwayat, materi pengajar.
-- **`kasus-maksi-pages` (public)** = salinan runtime bersih untuk mahasiswa.
-- **Panduan Mahasiswa** = terbuka tanpa sandi.
-- **Area Dosen** = tetap terenkripsi dan menggunakan sandi lokal di browser.
-
-## Catatan keamanan
-Repo deployment publik harus dibuat sebagai repo baru agar tidak membawa riwayat lama yang pernah memuat panduan dosen plaintext. Jangan mengubah repo `kasus-maksi` kembali menjadi public hanya demi mengaktifkan URL kelas.
+## Checklist setelah perubahan visibility
+- [ ] repo menunjukkan visibility **Public**;
+- [ ] GitHub Pages aktif dari `main` / root;
+- [ ] portal terbuka melalui incognito;
+- [ ] Kasus 1 terbuka;
+- [ ] Kasus 2 terbuka;
+- [ ] Panduan Mahasiswa terbuka tanpa sandi;
+- [ ] Area Dosen meminta sandi;
+- [ ] sandi salah gagal membuka panduan;
+- [ ] sandi benar membuka kedua panduan dosen;
+- [ ] tombol **Kunci kembali** bekerja;
+- [ ] refresh tidak menampilkan plaintext panduan dosen sebelum login;
+- [ ] source branch `main` tidak memiliki `PANDUAN_DOSEN.md` plaintext.
