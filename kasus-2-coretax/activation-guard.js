@@ -1,6 +1,13 @@
 (()=>{
-  const STORAGE_KEY='kasus2_aktif_v1';
-  if(localStorage.getItem(STORAGE_KEY)!=='1'){
-    window.location.replace('../index.html?kasus2=belum-aktif');
-  }
+  document.documentElement.style.visibility='hidden';
+  fetch('/api/case2-status',{cache:'no-store',headers:{'Accept':'application/json'}})
+    .then(r=>{if(!r.ok)throw new Error('status');return r.json()})
+    .then(data=>{
+      if(data.enabled===true){
+        document.documentElement.style.visibility='';
+      }else{
+        window.location.replace('../index.html?kasus2=belum-aktif');
+      }
+    })
+    .catch(()=>window.location.replace('../index.html?kasus2=status-gagal'));
 })();
