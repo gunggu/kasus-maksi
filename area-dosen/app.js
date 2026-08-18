@@ -41,9 +41,9 @@ function formatDate(s){try{return new Intl.DateTimeFormat('id-ID',{dateStyle:'me
 function caseLabel(id){return id==='case2'?'Kasus 2 — Coretax':'Kasus 1 — Citibank'}
 async function showSubmissions(){
   setActive($('#submissionsTab'));const box=$('#guide');box.className='guide submissions-view';
-  box.innerHTML='<div class="files-head"><div><h1>Berkas Presentasi Kelompok</h1><p>Seluruh unggahan PowerPoint mahasiswa tersimpan di Cloudflare R2 dan hanya dapat diunduh melalui sesi dosen.</p></div><button id="refreshFiles" class="secondary">Muat ulang</button></div><div id="filesBody"><p>Memuat daftar berkas…</p></div>';
+  box.innerHTML='<div class="files-head"><div><h1>Berkas Presentasi Kelompok</h1><p>Seluruh unggahan PowerPoint mahasiswa tersimpan di Cloudflare Workers KV dan hanya dapat diunduh melalui sesi dosen.</p></div><button id="refreshFiles" class="secondary">Muat ulang</button></div><div id="filesBody"><p>Memuat daftar berkas…</p></div>';
   $('#refreshFiles').onclick=()=>showSubmissions();
-  if(!instructorToken){$('#filesBody').innerHTML=`<div class="file-warning"><b>Akses penyimpanan belum tersedia.</b><p>${inline(instructorSessionError||'Secret akses dosen atau binding R2 belum dikonfigurasi pada Cloudflare.')}</p></div>`;return}
+  if(!instructorToken){$('#filesBody').innerHTML=`<div class="file-warning"><b>Akses penyimpanan belum tersedia.</b><p>${inline(instructorSessionError||'Secret akses dosen atau binding Workers KV belum dikonfigurasi pada Cloudflare.')}</p></div>`;return}
   try{
     const r=await fetch('../api/submissions/list',{headers:{authorization:`Bearer ${instructorToken}`},cache:'no-store'});
     const data=await r.json().catch(()=>({}));
@@ -52,7 +52,7 @@ async function showSubmissions(){
     const items=data.items||[];
     if(!items.length){$('#filesBody').innerHTML='<div class="empty-files"><b>Belum ada berkas yang diunggah.</b><p>Setelah kelompok mengunggah presentasi, file akan muncul di sini.</p></div>';return}
     const rows=items.map((x,i)=>`<tr><td>${i+1}</td><td><span class="case-pill ${x.caseId==='case2'?'case2':''}">${inline(caseLabel(x.caseId))}</span></td><td><b>${inline(x.group||'-')}</b><small>${inline(x.members||'')}</small></td><td>${inline(x.originalName||x.key.split('/').pop())}</td><td>${formatSize(Number(x.size||0))}</td><td>${formatDate(x.uploadedAt||x.uploaded)}</td><td><button class="download-file" data-key="${encodeURIComponent(x.key)}" data-name="${encodeURIComponent(x.originalName||'presentasi.pptx')}">Unduh</button></td></tr>`).join('');
-    $('#filesBody').innerHTML=`<div class="file-summary"><b>${items.length} berkas</b><span>${data.truncated?'Daftar dibatasi pada 1.000 objek.':'Semua unggahan yang tersedia.'}</span></div><div class="table-scroll"><table class="files-table"><thead><tr><th>No.</th><th>Kasus</th><th>Kelompok</th><th>Berkas</th><th>Ukuran</th><th>Waktu unggah</th><th></th></tr></thead><tbody>${rows}</tbody></table></div>`;
+    $('#filesBody').innerHTML=`<div class="file-summary"><b>${items.length} berkas</b><span>${data.truncated?'Daftar dibatasi pada 1.000 entri per batch.':'Semua unggahan yang tersedia.'}</span></div><div class="table-scroll"><table class="files-table"><thead><tr><th>No.</th><th>Kasus</th><th>Kelompok</th><th>Berkas</th><th>Ukuran</th><th>Waktu unggah</th><th></th></tr></thead><tbody>${rows}</tbody></table></div>`;
     document.querySelectorAll('.download-file').forEach(btn=>btn.onclick=()=>downloadFile(decodeURIComponent(btn.dataset.key),decodeURIComponent(btn.dataset.name),btn));
   }catch(err){$('#filesBody').innerHTML=`<div class="file-warning"><b>Daftar berkas belum dapat dimuat.</b><p>${inline(err.message)}</p></div>`}
 }
