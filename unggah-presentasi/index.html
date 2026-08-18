@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Unggah Presentasi Kelompok — Laboratorium Kasus SIA</title>
+<link rel="stylesheet" href="style.css?v=20260818">
+</head>
+<body>
+<main class="shell">
+  <a class="back" href="../index.html">← Kembali ke portal</a>
+  <header>
+    <span class="eyebrow">AREA MAHASISWA</span>
+    <h1>Unggah Presentasi Kelompok</h1>
+    <p>Unggah berkas presentasi kelompok setelah diskusi selesai. Gunakan format PowerPoint <b>.ppt</b> atau <b>.pptx</b>, maksimum 25 MB.</p>
+  </header>
+  <section class="card">
+    <form id="uploadForm">
+      <label for="caseId">Kasus</label>
+      <select id="caseId" name="caseId" required>
+        <option value="case1">Kasus 1 — Citibank Indonesia</option>
+        <option value="case2" id="case2Option">Kasus 2 — Coretax DJP</option>
+      </select>
+      <p id="case2Note" class="hint">Memeriksa status Kasus 2…</p>
+
+      <label for="group">Nama / nomor kelompok</label>
+      <input id="group" name="group" maxlength="80" placeholder="Contoh: Kelompok 3" required>
+
+      <label for="members">Nama anggota / penyaji</label>
+      <input id="members" name="members" maxlength="240" placeholder="Contoh: Andi, Budi, Citra, Dewi">
+
+      <label for="file">Berkas PowerPoint</label>
+      <input id="file" name="file" type="file" accept=".ppt,.pptx,application/vnd.ms-powerpoint,application/vnd.openxmlformats-officedocument.presentationml.presentation" required>
+      <p class="hint">Gunakan satu berkas final per kelompok. Bila perlu mengunggah revisi, gunakan nama file yang berbeda.</p>
+
+      <button class="primary" type="submit">Unggah Presentasi</button>
+      <div class="progress-wrap" id="progressWrap" hidden><div class="progress"><span id="progressBar"></span></div></div>
+      <p id="status" class="status" role="status"></p>
+    </form>
+  </section>
+  <section class="rules">
+    <h2>Sebelum mengunggah</h2>
+    <ul>
+      <li>Pastikan file merupakan versi yang akan dipresentasikan.</li>
+      <li>Nama kelompok harus jelas agar dosen dapat mengidentifikasi file.</li>
+      <li>Kasus 2 hanya dapat dipilih setelah dosen mengaktifkan Kasus 2 secara global.</li>
+      <li>Berkas hanya dapat dilihat dan diunduh dari Area Dosen.</li>
+    </ul>
+  </section>
+</main>
+<script src="app.js?v=20260818"></script>
+</body>
+</html>
