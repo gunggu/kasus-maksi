@@ -4,36 +4,37 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
 <title>Area Dosen — Laboratorium Kasus SIA</title>
-<link rel="stylesheet" href="style.css?v=20260807">
+<link rel="stylesheet" href="style.css?v=20260818-upload1">
 </head>
 <body>
 <main class="shell">
   <a class="back" href="../index.html">← Kembali ke portal</a>
   <section id="login" class="login-card">
-    <span class="eyebrow">AREA DOSEN • TERENKRIPSI</span>
-    <h1>Panduan Pengajar</h1>
-    <p>Panduan dosen tidak disimpan sebagai teks terbuka di repositori. Masukkan sandi dosen untuk mendekripsi materi di browser Anda.</p>
+    <span class="eyebrow">AREA DOSEN • TERPROTEKSI</span>
+    <h1>Panduan & Berkas Kelompok</h1>
+    <p>Masukkan sandi dosen untuk membuka panduan pengajar dan akses berkas presentasi kelompok.</p>
     <form id="unlockForm">
       <label for="password">Sandi dosen</label>
       <div class="password-row"><input id="password" type="password" autocomplete="current-password" required autofocus><button type="button" id="togglePassword" aria-label="Tampilkan atau sembunyikan sandi">Lihat</button></div>
       <button class="primary" type="submit">Buka Area Dosen</button>
       <p id="status" class="status" role="status"></p>
     </form>
-    <div class="security-note"><b>Catatan keamanan</b><span>Sandi tidak dikirim ke server dan tidak disimpan di GitHub. Dekripsi menggunakan Web Crypto API pada perangkat ini.</span></div>
+    <div class="security-note"><b>Catatan keamanan</b><span>Panduan dosen didekripsi lokal di browser. Untuk akses berkas kelompok, sandi diverifikasi melalui koneksi HTTPS ke Cloudflare Worker dan ditukar dengan sesi dosen sementara; sandi tidak disimpan di browser atau GitHub.</span></div>
   </section>
 
   <section id="teacherArea" class="teacher-area" hidden>
     <header class="teacher-head">
-      <div><span class="eyebrow">PANDUAN DOSEN</span><h1>Laboratorium Kasus SIA</h1><p>Pilih panduan kasus. Materi hanya tersimpan dalam memori tab ini sampai halaman ditutup atau dikunci.</p></div>
+      <div><span class="eyebrow">AREA DOSEN</span><h1>Laboratorium Kasus SIA</h1><p>Pilih panduan kasus atau buka daftar presentasi kelompok.</p></div>
       <button id="lock" class="secondary">Kunci kembali</button>
     </header>
-    <nav class="tabs" aria-label="Pilih panduan dosen">
+    <nav class="tabs" aria-label="Menu Area Dosen">
       <button data-guide="0" class="active">Kasus 1 — Citibank</button>
       <button data-guide="1">Kasus 2 — Coretax</button>
+      <button id="submissionsTab">Berkas Kelompok</button>
     </nav>
     <article id="guide" class="guide"></article>
   </section>
 </main>
-<script src="app.js?v=20260807"></script>
+<script src="app.js?v=20260818-upload1"></script>
 </body>
 </html>
