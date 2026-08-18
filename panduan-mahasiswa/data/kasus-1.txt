@@ -1,0 +1,113 @@
+# Panduan Mahasiswa — Kasus 1 Citibank Indonesia: 117 Transfer
+
+## Peran Anda
+Anda bekerja dalam kelompok sebagai **tim review Sistem Informasi Akuntansi dan pengendalian** yang melapor kepada Komite Audit. Tujuan Anda bukan menebak hasil perkara, tetapi memahami bagaimana transaksi diproses oleh sistem, di mana kualitas informasi dapat gagal, dan bagaimana pengendalian SIA seharusnya bekerja.
+
+## Mengapa ini kasus Sistem Informasi Akuntansi?
+Kasus ini bukan terutama dipelajari sebagai kasus kriminal. Fokus SIA adalah bagaimana **transaksi keuangan masuk ke sistem, divalidasi, diotorisasi, diproses, dicatat, dipantau, dan menjadi informasi akuntansi yang dipercaya**.
+
+Pertanyaan utamanya:
+
+> **Bagaimana suatu transaksi dapat tercatat dan diproses oleh sistem perbankan ketika keabsahan otorisasinya dipersoalkan, dan kontrol informasi apa yang seharusnya mencegah atau mendeteksinya?**
+
+Model dasar yang perlu Anda pikirkan:
+
+**instruksi nasabah → dokumen sumber → input → validasi → otorisasi → pemrosesan → posting → output → monitoring**
+
+### Fakta kasus yang relevan untuk SIA
+- terdapat rekening nasabah dan beneficiary;
+- terdapat formulir/instruksi transfer sebagai dokumen sumber;
+- terdapat Relationship Manager, Cash Officer, dan Cash Supervisor dalam rantai proses;
+- terdapat SOP Transaction Verification No. 30 Revision 2007;
+- terdapat transaksi bernilai besar yang memerlukan verifikasi;
+- terdapat account summary, banking relationship summary, dan guest logbook sebagai sumber bukti;
+- terdapat beneficiary berulang yang dapat digunakan sebagai dasar exception monitoring;
+- kasus tidak menyediakan raw core-banking log, sehingga Anda harus menyadari bukti sistem apa yang masih perlu diminta.
+
+## Konsep SIA yang perlu Anda gunakan
+1. **Transaction Processing System (TPS)** — sistem dapat memproses transaksi secara teknis benar tetapi transaksi dasarnya belum tentu valid.
+2. **Input controls** — apakah dokumen sumber, identitas, beneficiary, nilai, dan tujuan transaksi valid?
+3. **Authorization controls** — apakah approval benar-benar mencerminkan otorisasi genuine?
+4. **Segregation of duties** — apakah penerimaan instruksi, input, verifikasi, approval, dan monitoring cukup independen?
+5. **Business rules / threshold controls** — apakah transaksi material atau pola berulang memicu kontrol tambahan?
+6. **Audit trail** — dapatkah ditelusuri siapa melakukan apa, kapan, dan berdasarkan bukti apa?
+7. **Exception reporting & monitoring** — apakah sistem mendeteksi beneficiary berulang, outlier, atau kombinasi personel yang tidak lazim?
+8. **Information quality** — apakah informasi yang dihasilkan valid, lengkap, akurat, relevan, dan dapat ditelusuri?
+
+## Waktu pertemuan
+Pertemuan berlangsung **120 menit**. Anda tidak perlu membuka semua menu atau seluruh bukti. Fokus pada bukti yang paling relevan untuk menjawab pertanyaan kasus.
+
+## Urutan kerja
+1. **0–10 menit — Pembukaan.** Dengarkan tujuan pembelajaran SIA, aturan bukti, pembagian kelompok, dan output yang harus dihasilkan.
+2. **10–25 menit — Deskripsi kasus & konteks SIA.** Pahami bagaimana transaksi seharusnya mengalir melalui SIA perbankan dan apa batas data yang tersedia.
+3. **25–30 menit — Pembagian peran.** Tentukan navigator aplikasi, pencatat bukti, analis kontrol, dan penyaji.
+4. **30–70 menit — Analisis kelompok.** Gunakan transaksi, jaringan rekening, kontrol, dan wawancara untuk menjawab empat pertanyaan kasus.
+5. **70–90 menit — Matriks R-K-B.** Isi minimal tiga baris lengkap.
+6. **90–105 menit — Persiapan presentasi.** Semua kelompok menyiapkan maksimum lima slide.
+7. **105–117 menit — Presentasi.** Satu kelompok dipilih untuk presentasi 8 menit dan 4 menit tanggapan kelas.
+8. **117–120 menit — Penutup dosen.** Catat pelajaran utama SIA dan bandingkan dengan hasil kelompok Anda.
+
+## Pembagian peran yang disarankan
+- **Navigator aplikasi:** membuka transaksi dan bukti.
+- **Pencatat bukti:** mencatat ID sumber, fakta, dan keterbatasan.
+- **Analis SIA/kontrol:** menghubungkan proses, risiko, kontrol, dan kualitas informasi.
+- **Penyaji:** menjaga struktur jawaban dan menyiapkan presentasi.
+
+## Empat pertanyaan kasus
+
+### P1 — Bagaimana transaksi seharusnya diproses oleh Sistem Informasi Akuntansi?
+Rekonstruksikan alur instruksi transfer dari nasabah sampai posting ke rekening beneficiary:
+
+**dokumen sumber → input → validasi → otorisasi → pemrosesan → posting → monitoring.**
+
+Pada titik mana seharusnya terdapat pengendalian?
+
+**Output:** satu diagram alur SIA dan sedikitnya tiga titik kontrol.
+
+### P2 — Di mana kualitas informasi dapat rusak?
+Pilih tiga fakta atau indikator paling penting dari aplikasi. Jelaskan bagaimana input tidak valid, otorisasi yang tidak memadai, atau monitoring yang lemah dapat membuat transaksi tetap tercatat. Bedakan fakta, indikator, dan keterbatasan bukti.
+
+**Output:** tiga titik kegagalan kualitas informasi beserta bukti dan keterbatasannya.
+
+### P3 — Kontrol SIA apa yang bermasalah?
+Nilai kontrol yang relevan sebagai preventive, detective, atau monitoring. Jelaskan apakah masalah utamanya berada pada desain kontrol, pelaksanaan, override, segregation of duties, audit trail, atau exception monitoring.
+
+**Output:** minimal tiga baris Matriks Risiko–Kontrol–Bukti yang lengkap.
+
+### P4 — Bagaimana Sistem Informasi Akuntansi seharusnya diperbaiki?
+Berikan tiga rekomendasi prioritas yang memperbaiki sistem dan proses, bukan hanya perilaku individu. Pertimbangkan independent confirmation, role segregation, stronger audit trail, rule-based exception monitoring, dan analitik pola transaksi.
+
+**Output:** tiga rekomendasi desain SIA + satu kesimpulan profesional dengan keterbatasan.
+
+## Format presentasi kelompok — maksimum 5 slide
+1. **Alur SIA transaksi dan titik kontrol**
+2. **Tiga titik kegagalan kualitas informasi**
+3. **Analisis kontrol dan ringkasan R-K-B**
+4. **Tiga rekomendasi desain SIA**
+5. **Kesimpulan profesional dan keterbatasan**
+
+Satu kelompok akan dipilih untuk presentasi **8 menit**, diikuti **4 menit** tanggapan atau pertanyaan dari kelas.
+
+## Pesan utama yang perlu dibawa pulang
+- **Processing accuracy tidak sama dengan transaction validity.**
+- **Evidence of approval tidak selalu sama dengan evidence of genuine authorization.**
+- Keberadaan SOP tidak sama dengan operating effectiveness.
+- Sistem akuntansi tidak cukup hanya mencatat transaksi; sistem juga harus mendukung deteksi exception dan pola yang tidak wajar.
+- Struktur jabatan tidak otomatis menciptakan segregation of duties yang efektif.
+- Kualitas informasi sangat bergantung pada kualitas input, otorisasi, audit trail, dan monitoring.
+- Kegagalan SIA dapat berasal dari desain sistem, konfigurasi kontrol, perilaku manusia, override, atau kombinasi semuanya.
+
+## Aturan penalaran
+- **Indikator bukan bukti final.** Beneficiary berulang atau transaksi besar adalah alasan untuk prosedur tambahan.
+- **Jangan menggeneralisasi tanpa dasar.** Temuan atas dua formulir tidak otomatis berlaku bagi semua transaksi.
+- **Bedakan fakta dan inferensi.** Tuliskan apa yang benar-benar diketahui sebelum menuliskan interpretasi.
+- **Bedakan kesimpulan SIA/kontrol dan kesimpulan hukum.** Analisis SIA tidak menentukan tanggung jawab pidana individu.
+- **Rekonstruksi bukan bukti historis.** Formulir simulasi hanya alat untuk memahami proses.
+
+## Yang dinilai
+Dosen terutama menilai kualitas alasan Anda, bukan jumlah menu yang dibuka. Jawaban yang kuat harus menunjukkan hubungan:
+
+**fakta/isu → risiko → kontrol → bukti → keterbatasan → kesimpulan/rekomendasi.**
+
+## Integritas akademik
+Gunakan AI hanya jika diizinkan dosen dan ungkapkan penggunaannya sesuai kebijakan mata kuliah. Jangan menyajikan rekonstruksi aplikasi sebagai dokumen historis asli.
