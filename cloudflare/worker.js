@@ -120,7 +120,7 @@ function contentDisposition(name) {
 }
 
 async function handleUpload(request, env) {
-  if (!env.PRESENTATIONS) return json({ error: 'Penyimpanan R2 belum dikonfigurasi.' }, 503);
+  if (!env.PRESENTATIONS) return json({ error: 'Workers KV untuk presentasi belum dikonfigurasi.' }, 503);
   const form = await request.formData().catch(() => null);
   if (!form) return json({ error: 'Form unggahan tidak valid.' }, 400);
   const caseId = safeText(form.get('caseId'), 12);
@@ -132,50 +132,50 @@ async function handleUpload(request, env) {
   if (!(file instanceof File)) return json({ error: 'Berkas presentasi wajib dipilih.' }, 400);
   const lower = file.name.toLowerCase();
   if (!(lower.endsWith('.ppt') || lower.endsWith('.pptx'))) return json({ error: 'Hanya berkas .ppt atau .pptx yang diizinkan.' }, 400);
-  if (file.size > 25 * 1024 * 1024) return json({ error: 'Ukuran maksimum berkas adalah 25 MB.' }, 413);
+  if (file.size > 20 * 1024 * 1024) return json({ error: 'Ukuran maksimum berkas adalah 20 MB.' }, 413);
   if (caseId === 'case2') {
     const { enabled } = await getStatus(env);
     if (!enabled) return json({ error: 'Kasus 2 belum diaktifkan.' }, 403);
   }
   const uploadedAt = new Date().toISOString();
-  const key = `${caseId}/${uploadedAt.replace(/[:.]/g, '-')}_${safeFilename(group)}_${crypto.randomUUID()}_${safeFilename(file.name)}`;
-  await env.PRESENTATIONS.put(key, file.stream(), {
-    httpMetadata: { contentType: file.type || 'application/octet-stream' },
-    customMetadata: {
-      originalName: safeFilename(file.name),
-      group,
-      members,
-      caseId,
-      uploadedAt
-    }
-  });
-  return json({ ok: true, key, uploadedAt, filename: file.name });
+  const originalName = safeFilename(file.name);
+  const key = `submission:${caseId}:${uploadedAt.replace(/[:.]/g, '-')}:${safeFilename(group)}:${crypto.randomUUID()}`;
+  const metadata = { originalName, group, members, caseId, uploadedAt, size: file.size, contentType: file.type || 'application/octet-stream' };
+  const bytes = await file.arrayBuffer();
+  await env.PRESENTATIONS.put(key, bytes, { metadata });
+  return json({ ok: true, key, uploadedAt, filename: originalName });
 }
 
 async function listSubmissions(env) {
-  if (!env.PRESENTATIONS) return json({ error: 'Penyimpanan R2 belum dikonfigurasi.' }, 503);
-  const result = await env.PRESENTATIONS.list({ limit: 1000, include: ['customMetadata'] });
-  const items = result.objects.map(o => ({
-    key: o.key,
-    size: o.size,
-    uploaded: o.uploaded,
-    ...o.customMetadata
-  })).sort((a, b) => new Date(b.uploadedAt || b.uploaded) - new Date(a.uploadedAt || a.uploaded));
-  return json({ items, truncated: result.truncated });
+  if (!env.PRESENTATIONS) return json({ error: 'Workers KV untuk presentasi belum dikonfigurasi.' }, 503);
+  let cursor;
+  const items = [];
+  do {
+    const result = await env.PRESENTATIONS.list({ prefix: 'submission:', limit: 1000, cursor });
+    for (const k of result.keys) {
+      const m = k.metadata || {};
+      items.push({ key: k.name, ...m });
+    }
+    cursor = result.list_complete ? undefined : result.cursor;
+  } while (cursor && items.length < 5000);
+  items.sort((a, b) => new Date(b.uploadedAt || 0) - new Date(a.uploadedAt || 0));
+  return json({ items, truncated: Boolean(cursor) });
 }
 
 async function downloadSubmission(request, env) {
-  if (!env.PRESENTATIONS) return json({ error: 'Penyimpanan R2 belum dikonfigurasi.' }, 503);
+  if (!env.PRESENTATIONS) return json({ error: 'Workers KV untuk presentasi belum dikonfigurasi.' }, 503);
   const key = new URL(request.url).searchParams.get('key');
-  if (!key) return json({ error: 'Key berkas tidak tersedia.' }, 400);
-  const object = await env.PRESENTATIONS.get(key);
-  if (!object) return json({ error: 'Berkas tidak ditemukan.' }, 404);
+  if (!key || !key.startsWith('submission:')) return json({ error: 'Key berkas tidak valid.' }, 400);
+  const data = await env.PRESENTATIONS.getWithMetadata(key, { type: 'arrayBuffer' });
+  if (!data.value) return json({ error: 'Berkas tidak ditemukan.' }, 404);
+  const m = data.metadata || {};
   const headers = new Headers();
-  object.writeHttpMetadata(headers);
-  headers.set('content-disposition', contentDisposition(object.customMetadata?.originalName || key.split('/').pop()));
+  headers.set('content-type', m.contentType || 'application/octet-stream');
+  headers.set('content-disposition', contentDisposition(m.originalName || 'presentasi.pptx'));
+  headers.set('content-length', String(m.size || data.value.byteLength));
   headers.set('cache-control', 'private, no-store');
   headers.set('x-content-type-options', 'nosniff');
-  return new Response(object.body, { headers });
+  return new Response(data.value, { headers });
 }
 
 export default {
