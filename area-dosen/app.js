@@ -41,7 +41,7 @@ function formatDate(s){try{return new Intl.DateTimeFormat('id-ID',{dateStyle:'me
 function caseLabel(id){return id==='case2'?'Kasus 2 — Coretax':'Kasus 1 — Citibank'}
 async function showSubmissions(){
   setActive($('#submissionsTab'));const box=$('#guide');box.className='guide submissions-view';
-  box.innerHTML='<div class="files-head"><div><h1>Berkas Presentasi Kelompok</h1><p>Seluruh unggahan PowerPoint mahasiswa tersimpan di Cloudflare Workers KV dan hanya dapat diunduh melalui sesi dosen.</p></div><button id="refreshFiles" class="secondary">Muat ulang</button></div><div id="filesBody"><p>Memuat daftar berkas…</p></div>';
+  box.innerHTML='<div class="files-head"><div><h1>Berkas Presentasi Kelompok</h1><p>Seluruh unggahan PowerPoint mahasiswa tersimpan di Cloudflare Workers KV. Dosen dapat mengunduh atau menghapus berkas dari menu ini.</p></div><button id="refreshFiles" class="secondary">Muat ulang</button></div><div id="filesBody"><p>Memuat daftar berkas…</p></div>';
   $('#refreshFiles').onclick=()=>showSubmissions();
   if(!instructorToken){$('#filesBody').innerHTML=`<div class="file-warning"><b>Akses penyimpanan belum tersedia.</b><p>${inline(instructorSessionError||'Secret akses dosen atau binding Workers KV belum dikonfigurasi pada Cloudflare.')}</p></div>`;return}
   try{
@@ -51,9 +51,10 @@ async function showSubmissions(){
     if(!r.ok)throw new Error(data.error||'Daftar berkas tidak dapat dimuat.');
     const items=data.items||[];
     if(!items.length){$('#filesBody').innerHTML='<div class="empty-files"><b>Belum ada berkas yang diunggah.</b><p>Setelah kelompok mengunggah presentasi, file akan muncul di sini.</p></div>';return}
-    const rows=items.map((x,i)=>`<tr><td>${i+1}</td><td><span class="case-pill ${x.caseId==='case2'?'case2':''}">${inline(caseLabel(x.caseId))}</span></td><td><b>${inline(x.group||'-')}</b><small>${inline(x.members||'')}</small></td><td>${inline(x.originalName||x.key.split('/').pop())}</td><td>${formatSize(Number(x.size||0))}</td><td>${formatDate(x.uploadedAt||x.uploaded)}</td><td><button class="download-file" data-key="${encodeURIComponent(x.key)}" data-name="${encodeURIComponent(x.originalName||'presentasi.pptx')}">Unduh</button></td></tr>`).join('');
-    $('#filesBody').innerHTML=`<div class="file-summary"><b>${items.length} berkas</b><span>${data.truncated?'Daftar dibatasi pada 1.000 entri per batch.':'Semua unggahan yang tersedia.'}</span></div><div class="table-scroll"><table class="files-table"><thead><tr><th>No.</th><th>Kasus</th><th>Kelompok</th><th>Berkas</th><th>Ukuran</th><th>Waktu unggah</th><th></th></tr></thead><tbody>${rows}</tbody></table></div>`;
+    const rows=items.map((x,i)=>`<tr><td>${i+1}</td><td><span class="case-pill ${x.caseId==='case2'?'case2':''}">${inline(caseLabel(x.caseId))}</span></td><td><b>${inline(x.group||'-')}</b><small>${inline(x.members||'')}</small></td><td>${inline(x.originalName||x.key.split('/').pop())}</td><td>${formatSize(Number(x.size||0))}</td><td>${formatDate(x.uploadedAt||x.uploaded)}</td><td><div class="file-actions"><button class="download-file" data-key="${encodeURIComponent(x.key)}" data-name="${encodeURIComponent(x.originalName||'presentasi.pptx')}">Unduh</button><button class="delete-file" data-key="${encodeURIComponent(x.key)}" data-name="${encodeURIComponent(x.originalName||'presentasi.pptx')}" data-group="${encodeURIComponent(x.group||'-')}">Hapus</button></div></td></tr>`).join('');
+    $('#filesBody').innerHTML=`<div class="file-summary"><b>${items.length} berkas</b><span>${data.truncated?'Daftar dibatasi pada 1.000 entri per batch.':'Semua unggahan yang tersedia.'}</span></div><div class="table-scroll"><table class="files-table"><thead><tr><th>No.</th><th>Kasus</th><th>Kelompok</th><th>Berkas</th><th>Ukuran</th><th>Waktu unggah</th><th>Tindakan</th></tr></thead><tbody>${rows}</tbody></table></div>`;
     document.querySelectorAll('.download-file').forEach(btn=>btn.onclick=()=>downloadFile(decodeURIComponent(btn.dataset.key),decodeURIComponent(btn.dataset.name),btn));
+    document.querySelectorAll('.delete-file').forEach(btn=>btn.onclick=()=>deleteFile(decodeURIComponent(btn.dataset.key),decodeURIComponent(btn.dataset.name),decodeURIComponent(btn.dataset.group),btn));
   }catch(err){$('#filesBody').innerHTML=`<div class="file-warning"><b>Daftar berkas belum dapat dimuat.</b><p>${inline(err.message)}</p></div>`}
 }
 async function downloadFile(key,name,btn){
@@ -63,6 +64,18 @@ async function downloadFile(key,name,btn){
     if(!r.ok){const d=await r.json().catch(()=>({}));throw new Error(d.error||'Unduhan gagal.')}
     const blob=await r.blob();const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
   }catch(err){alert(err.message)}finally{btn.disabled=false;btn.textContent=old}
+}
+async function deleteFile(key,name,group,btn){
+  const ok=window.confirm(`Hapus berkas "${name}" milik ${group}?\n\nTindakan ini permanen dan berkas tidak dapat dipulihkan dari Area Dosen.`);
+  if(!ok)return;
+  const old=btn.textContent;btn.disabled=true;btn.textContent='Menghapus…';
+  try{
+    const r=await fetch(`../api/submissions/delete?key=${encodeURIComponent(key)}`,{method:'DELETE',headers:{authorization:`Bearer ${instructorToken}`}});
+    const data=await r.json().catch(()=>({}));
+    if(r.status===401){instructorToken=null;throw new Error('Sesi akses berkas telah berakhir. Kunci Area Dosen lalu masuk kembali.')}
+    if(!r.ok)throw new Error(data.error||'Penghapusan gagal.');
+    await showSubmissions();
+  }catch(err){alert(err.message);btn.disabled=false;btn.textContent=old}
 }
 $('#unlockForm').addEventListener('submit',async e=>{
   e.preventDefault();const status=$('#status'),btn=e.submitter,p=$('#password').value;status.textContent='Membuka materi…';status.className='status';btn.disabled=true;
