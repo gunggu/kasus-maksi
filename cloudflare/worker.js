@@ -66,6 +66,21 @@ async function getStatus(env) {
   return response.json();
 }
 
+async function getActivationSecret(env) {
+  const binding = env.CASE2_ACTIVATION_SECRET;
+  if (!binding) return null;
+  if (typeof binding === 'string') return binding;
+  if (typeof binding.get === 'function') {
+    try {
+      const value = await binding.get();
+      return typeof value === 'string' ? value : null;
+    } catch {
+      return null;
+    }
+  }
+  return null;
+}
+
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
@@ -75,22 +90,24 @@ export default {
     }
 
     if (url.pathname === '/api/case2-activate' && request.method === 'POST') {
-      if (!env.CASE2_ACTIVATION_SECRET) {
+      const activationSecret = await getActivationSecret(env);
+      if (!activationSecret) {
         return json({ error: 'Secret aktivasi belum dikonfigurasi pada Cloudflare Worker.' }, 503);
       }
       const password = await readPassword(request);
-      if (!(await sameSecret(password, env.CASE2_ACTIVATION_SECRET))) {
+      if (!(await sameSecret(password, activationSecret))) {
         return json({ error: 'Sandi aktivasi tidak sesuai.' }, 401);
       }
       return stateStub(env).fetch('https://case-state/enable', { method: 'POST' });
     }
 
     if (url.pathname === '/api/case2-deactivate' && request.method === 'POST') {
-      if (!env.CASE2_ACTIVATION_SECRET) {
+      const activationSecret = await getActivationSecret(env);
+      if (!activationSecret) {
         return json({ error: 'Secret aktivasi belum dikonfigurasi pada Cloudflare Worker.' }, 503);
       }
       const password = await readPassword(request);
-      if (!(await sameSecret(password, env.CASE2_ACTIVATION_SECRET))) {
+      if (!(await sameSecret(password, activationSecret))) {
         return json({ error: 'Sandi aktivasi tidak sesuai.' }, 401);
       }
       return stateStub(env).fetch('https://case-state/disable', { method: 'POST' });
