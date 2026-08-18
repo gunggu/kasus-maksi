@@ -22,7 +22,7 @@
     if(!file)return;
     const lower=file.name.toLowerCase();
     if(!(lower.endsWith('.ppt')||lower.endsWith('.pptx'))){status.textContent='Hanya berkas .ppt atau .pptx yang dapat diunggah.';status.className='status error';return;}
-    if(file.size>25*1024*1024){status.textContent='Ukuran berkas melebihi 25 MB.';status.className='status error';return;}
+    if(file.size>20*1024*1024){status.textContent='Ukuran berkas melebihi 20 MB.';status.className='status error';return;}
     const btn=form.querySelector('button[type=submit]');
     btn.disabled=true;status.textContent='Mengunggah…';status.className='status';
     const fd=new FormData(form);
