@@ -178,6 +178,16 @@ async function downloadSubmission(request, env) {
   return new Response(data.value, { headers });
 }
 
+async function deleteSubmission(request, env) {
+  if (!env.PRESENTATIONS) return json({ error: 'Workers KV untuk presentasi belum dikonfigurasi.' }, 503);
+  const key = new URL(request.url).searchParams.get('key');
+  if (!key || !key.startsWith('submission:')) return json({ error: 'Key berkas tidak valid.' }, 400);
+  const existing = await env.PRESENTATIONS.get(key, { type: 'arrayBuffer' });
+  if (!existing) return json({ error: 'Berkas tidak ditemukan atau sudah dihapus.' }, 404);
+  await env.PRESENTATIONS.delete(key);
+  return json({ ok: true, deleted: key });
+}
+
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
@@ -222,6 +232,12 @@ export default {
       const secret = await getSecretBinding(env.INSTRUCTOR_ACCESS_SECRET);
       if (!(await verifyInstructorToken(request, secret))) return json({ error: 'Akses dosen diperlukan.' }, 401);
       return downloadSubmission(request, env);
+    }
+
+    if (url.pathname === '/api/submissions/delete' && request.method === 'DELETE') {
+      const secret = await getSecretBinding(env.INSTRUCTOR_ACCESS_SECRET);
+      if (!(await verifyInstructorToken(request, secret))) return json({ error: 'Akses dosen diperlukan.' }, 401);
+      return deleteSubmission(request, env);
     }
 
     if (url.pathname === '/panduan-mahasiswa/data/kasus-2.txt') {
