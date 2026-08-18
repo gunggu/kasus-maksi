@@ -81,6 +81,12 @@ async function getActivationSecret(env) {
   return null;
 }
 
+function redirectHome(request) {
+  const home = new URL('/', request.url);
+  home.searchParams.set('kasus2', 'belum-aktif');
+  return Response.redirect(home.toString(), 302);
+}
+
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
@@ -113,12 +119,13 @@ export default {
       return stateStub(env).fetch('https://case-state/disable', { method: 'POST' });
     }
 
-    if (url.pathname === '/kasus-2-coretax' || url.pathname.startsWith('/kasus-2-coretax/')) {
+    const protectsCase2 = url.pathname === '/kasus-2-coretax' || url.pathname.startsWith('/kasus-2-coretax/');
+    const protectsGuide2 = url.pathname === '/panduan-mahasiswa/data/kasus-2.txt';
+    if (protectsCase2 || protectsGuide2) {
       const { enabled } = await getStatus(env);
       if (!enabled) {
-        const home = new URL('/', request.url);
-        home.searchParams.set('kasus2', 'belum-aktif');
-        return Response.redirect(home.toString(), 302);
+        if (protectsGuide2) return json({ error: 'Panduan Kasus 2 belum diaktifkan.' }, 403);
+        return redirectHome(request);
       }
     }
 
