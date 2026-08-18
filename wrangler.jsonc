@@ -18,6 +18,18 @@
       "id": "33f8f6935c154ab3a55af9483cda4078"
     }
   ],
+  "secrets_store_secrets": [
+    {
+      "binding": "CASE2_ACTIVATION_SECRET",
+      "store_id": "57983645c58e4759a494fe4cfbaaaca4",
+      "secret_name": "CASE2_ACTIVATION_SECRET"
+    },
+    {
+      "binding": "INSTRUCTOR_ACCESS_SECRET",
+      "store_id": "57983645c58e4759a494fe4cfbaaaca4",
+      "secret_name": "INSTRUCTOR_ACCESS_SECRET"
+    }
+  ],
   "durable_objects": {
     "bindings": [
       {
