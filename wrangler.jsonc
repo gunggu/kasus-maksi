@@ -12,6 +12,12 @@
       "/panduan-mahasiswa/data/kasus-2.txt"
     ]
   },
+  "kv_namespaces": [
+    {
+      "binding": "PRESENTATIONS",
+      "id": "33f8f6935c154ab3a55af9483cda4078"
+    }
+  ],
   "durable_objects": {
     "bindings": [
       {
